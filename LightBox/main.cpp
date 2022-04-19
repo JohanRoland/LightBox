@@ -33,18 +33,35 @@ Create and destroy a Vulkan surface on an SDL window.
 
 // Tell SDL not to mess with main()
 #define SDL_MAIN_HANDLED
-
+/*
 #include <glm/glm.hpp>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_syswm.h>
 #include <SDL2/SDL_vulkan.h>
 #include <vulkan/vulkan.hpp>
+*/
 
+#include <cstdlib>
 #include <iostream>
 #include <vector>
+#include <stdexcept>
+
+
+#include "first_app.h"
 
 int main()
 {
+	lightBox::FirstApp app{};
+
+	try {
+		app.run();
+	}
+	catch (std::exception &e) {
+		std::cerr << e.what() << "\n";
+		return EXIT_FAILURE;
+	}
+
+	/*
     // Create an SDL window that supports Vulkan rendering.
     if(SDL_Init(SDL_INIT_VIDEO) != 0) {
         std::cout << "Could not initialize SDL." << std::endl;
@@ -140,6 +157,7 @@ int main()
     SDL_DestroyWindow(window);
     SDL_Quit();
     instance.destroy();
+	*/
 
-    return 0;
+    return EXIT_SUCCESS;
 }

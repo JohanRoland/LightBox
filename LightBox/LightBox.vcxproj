@@ -94,6 +94,11 @@
       <AdditionalLibraryDirectories>$(VULKAN_SDK)\Lib32;$(VULKAN_SDK)\Third-Party\Bin32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
+    <CustomBuildStep>
+      <Message>CompileShaders</Message>
+      <Command>compile.bat</Command>
+      <Outputs>Shaders/simple_shader.vert.spv;Shaders/simple_shader.frag.spv;%(Outputs)</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -111,6 +116,11 @@
       <AdditionalLibraryDirectories>$(VULKAN_SDK)\Lib;$(VULKAN_SDK)\Third-Party\Bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
+    <CustomBuildStep>
+      <Message>CompileShaders</Message>
+      <Command>compile.bat</Command>
+      <Outputs>Shaders/simple_shader.vert.spv;Shaders/simple_shader.frag.spv;%(Outputs)</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -132,6 +142,11 @@
       <AdditionalLibraryDirectories>$(VULKAN_SDK)\Lib32;$(VULKAN_SDK)\Third-Party\Bin32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
+    <CustomBuildStep>
+      <Message>CompileShaders</Message>
+      <Command>compile.bat</Command>
+      <Outputs>Shaders/simple_shader.vert.spv;Shaders/simple_shader.frag.spv;%(Outputs)</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -153,9 +168,33 @@
       <AdditionalLibraryDirectories>$(VULKAN_SDK)\Lib;$(VULKAN_SDK)\Third-Party\Bin;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
+    <CustomBuildStep>
+      <Message>CompileShaders</Message>
+      <Command>compile.bat</Command>
+      <Outputs>Shaders/simple_shader.vert.spv;Shaders/simple_shader.frag.spv;%(Outputs)</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="first_app.cpp" />
+    <ClCompile Include="lightBox_pipeline.cpp" />
+    <ClCompile Include="lightBox_window.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="lightBox_device.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="first_app.h" />
+    <ClInclude Include="lightBox_pipeline.h" />
+    <ClInclude Include="lightBox_window.h" />
+    <ClInclude Include="lightBox_device.hpp" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="compile.bat" />
+    <None Include="Shaders\simple_shader.frag" />
+    <None Include="Shaders\simple_shader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="LightBox.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
