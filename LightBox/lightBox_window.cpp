@@ -39,7 +39,7 @@ int lightBox::Window::initWindow()
 		std::cout << "Could not initialize SDL." << std::endl;
 		return 1;
 	}
-	SDL_Window* window = SDL_CreateWindow("Vulkan Window", SDL_WINDOWPOS_CENTERED,
+	window = SDL_CreateWindow("Vulkan Window", SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED, 1280, 720, SDL_WINDOW_VULKAN);
 	if (window == NULL) {
 		std::cout << "Could not create SDL window." << std::endl;
@@ -62,20 +62,23 @@ int lightBox::Window::initWindow()
 	return 0;
 }
 
-std::vector<const char *> lightBox::Window::getRequiredExtensions(bool enableValidationLayers) {
-	uint32_t extensionCount = 0;
-	const char **cExtensions;
-	SDL_bool success = SDL_Vulkan_GetInstanceExtensions(window, &extensionCount, cExtensions);
-	if (success != VK_SUCCESS)
+std::vector<const char *> lightBox::Window::getRequiredExtensions(bool enableValidationLayers) 
+{
+	unsigned int extensionCount = 0;
+	SDL_bool success = SDL_Vulkan_GetInstanceExtensions(window, &extensionCount, nullptr);
+	if (success != SDL_TRUE)
+	{
+		throw std::runtime_error("Failed to get instance number of extensions!");
+	}
+	std::vector<const char *> extensionNames(extensionCount);
+	success = SDL_Vulkan_GetInstanceExtensions(window, &extensionCount, extensionNames.data());
+	if (success != SDL_TRUE)
 	{
 		throw std::runtime_error("Failed to get instance extensions!");
 	}
 
-	std::vector<const char *> vExtensions(cExtensions, cExtensions + extensionCount);
-
 	if (enableValidationLayers) {
-		vExtensions.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
+		extensionNames.push_back(VK_EXT_DEBUG_UTILS_EXTENSION_NAME);
 	}
-
-	return vExtensions;
+	return extensionNames;
 }

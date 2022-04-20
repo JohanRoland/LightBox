@@ -6,6 +6,7 @@
 #include <set>
 #include <unordered_set>
 
+
 namespace lightBox {
 
 // local callback functions
@@ -14,8 +15,13 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
     VkDebugUtilsMessageTypeFlagsEXT messageType,
     const VkDebugUtilsMessengerCallbackDataEXT *pCallbackData,
     void *pUserData) {
-  std::cerr << "validation layer: " << pCallbackData->pMessage << std::endl;
-
+	if (nullptr == pCallbackData->pMessage)
+	{
+		throw std::runtime_error("validation layer debug message is nullptr");
+	}
+	OutputDebugString(L"Validation layer message: ");
+	OutputDebugStringA(pCallbackData->pMessage);
+	OutputDebugString(L"\n");
   return VK_FALSE;
 }
 
@@ -24,7 +30,7 @@ VkResult CreateDebugUtilsMessengerEXT(
     const VkDebugUtilsMessengerCreateInfoEXT *pCreateInfo,
     const VkAllocationCallbacks *pAllocator,
     VkDebugUtilsMessengerEXT *pDebugMessenger) {
-  auto func = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(
+	auto func = (PFN_vkCreateDebugUtilsMessengerEXT)vkGetInstanceProcAddr(
       instance,
       "vkCreateDebugUtilsMessengerEXT");
   if (func != nullptr) {
@@ -222,6 +228,7 @@ void LightBoxDevice::populateDebugMessengerCreateInfo(
   createInfo.messageType = VK_DEBUG_UTILS_MESSAGE_TYPE_GENERAL_BIT_EXT |
                            VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT |
                            VK_DEBUG_UTILS_MESSAGE_TYPE_PERFORMANCE_BIT_EXT;
+  
   createInfo.pfnUserCallback = debugCallback;
   createInfo.pUserData = nullptr;  // Optional
 }

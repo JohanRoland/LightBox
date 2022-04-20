@@ -2,6 +2,7 @@
 
 #include "lightBox_window.h"
 #include "lightBox_pipeline.h"
+#include "lightBox_device.hpp"
 
 namespace lightBox {
 	class FirstApp {
@@ -13,6 +14,11 @@ namespace lightBox {
 
 	private:
 		Window window{ WIDTH, HEIGHT, "Hello, first app" };
-		Pipeline pipeline{ "Shaders/simple_shader.vert.spv", "Shaders/simple_shader.frag.spv" };
+		LightBoxDevice lightBoxDevice{ window };
+		Pipeline pipeline{
+			lightBoxDevice,
+			"Shaders/simple_shader.vert.spv",
+			"Shaders/simple_shader.frag.spv",
+			Pipeline::defaultPipelineConfigInfo(WIDTH, HEIGHT)};
 	};
 }
