@@ -1,6 +1,6 @@
 #pragma once
 
-
+#include <vulkan/vulkan.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_syswm.h>
 #include <SDL2/SDL_vulkan.h>
@@ -10,13 +10,15 @@
 
 namespace lightBox {
 
-	class Window {
+	class LightBoxWindow {
 	public:
-		Window(int w, int h, std::string name);
-		~Window();
+		LightBoxWindow(int w, int h, std::string name);
+		~LightBoxWindow();
 
-		Window(const Window &) = delete;
-		Window operator=(const Window &) = delete;
+		LightBoxWindow(const LightBoxWindow &) = delete;
+		LightBoxWindow operator=(const LightBoxWindow &) = delete;
+
+		VkExtent2D getExtent();
 
 		void createWindowSurface(VkInstance instance, VkSurfaceKHR *surface);
 		std::vector<const char*> getRequiredExtensions(bool enableValidationLayers);
@@ -30,7 +32,7 @@ namespace lightBox {
 		const int height;
 
 		std::string windowName;
-		SDL_Window* window;
+		SDL_Window* lightBoxWindow;
 
 	};
 

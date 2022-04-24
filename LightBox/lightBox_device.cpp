@@ -17,7 +17,9 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
     void *pUserData) {
 	if (nullptr == pCallbackData->pMessage)
 	{
-		throw std::runtime_error("validation layer debug message is nullptr");
+		OutputDebugString(L"Validation layer message: null message\n");
+		return VK_FALSE;
+		//throw std::runtime_error("validation layer debug message is nullptr");
 	}
 	OutputDebugString(L"Validation layer message: ");
 	OutputDebugStringA(pCallbackData->pMessage);
@@ -53,7 +55,7 @@ void DestroyDebugUtilsMessengerEXT(
 }
 
 // class member functions
-LightBoxDevice::LightBoxDevice(Window &window) : window{window} {
+LightBoxDevice::LightBoxDevice(LightBoxWindow &window) : lightBoxWindow{window} {
   createInstance();
   setupDebugMessenger();
   createSurface();
@@ -199,7 +201,7 @@ void LightBoxDevice::createCommandPool() {
   }
 }
 
-void LightBoxDevice::createSurface() { window.createWindowSurface(instance, &surface_); }
+void LightBoxDevice::createSurface() { lightBoxWindow.createWindowSurface(instance, &surface_); }
 
 bool LightBoxDevice::isDeviceSuitable(VkPhysicalDevice device) {
   QueueFamilyIndices indices = findQueueFamilies(device);
@@ -268,7 +270,7 @@ bool LightBoxDevice::checkValidationLayerSupport() {
 }
 
 std::vector<const char *> LightBoxDevice::getRequiredExtensions() {
-  return window.getRequiredExtensions(enableValidationLayers);
+  return lightBoxWindow.getRequiredExtensions(enableValidationLayers);
 }
 
 void LightBoxDevice::hasGflwRequiredInstanceExtensions() {

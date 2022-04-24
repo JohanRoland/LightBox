@@ -36,7 +36,7 @@ class LightBoxDevice {
   const bool enableValidationLayers = true;
 #endif
 
-  LightBoxDevice(Window &window);
+  LightBoxDevice(LightBoxWindow &window);
   ~LightBoxDevice();
 
   // Not copyable or movable
@@ -99,7 +99,7 @@ class LightBoxDevice {
   VkInstance instance;
   VkDebugUtilsMessengerEXT debugMessenger;
   VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
-  Window &window;
+  LightBoxWindow &lightBoxWindow;
   VkCommandPool commandPool;
 
   VkDevice device_;

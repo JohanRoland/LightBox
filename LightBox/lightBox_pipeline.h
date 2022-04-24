@@ -10,29 +10,29 @@ namespace lightBox {
 	struct PipelineConfigurationInfo {
 		VkViewport viewport;
 		VkRect2D scissor;
-		VkPipelineViewportStateCreateInfo viewportInfo;
 		VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
 		VkPipelineRasterizationStateCreateInfo rasterizationInfo;
 		VkPipelineMultisampleStateCreateInfo multisampleInfo;
 		VkPipelineColorBlendAttachmentState colorBlendAttachment;
-		VkPipelineColorBlendStateCreateInfo colorBlendInfo;
 		VkPipelineDepthStencilStateCreateInfo depthStencilInfo;
 		VkPipelineLayout pipelineLayout = nullptr;
 		VkRenderPass renderPass = nullptr;
 		uint32_t subpass = 0;
 	};
 
-	class Pipeline {
+	class LightBoxPipeline {
 	public:
-		Pipeline(
+		LightBoxPipeline(
 			LightBoxDevice &device,
 			const std::string vertFilePath,
 			const std::string fragFilePath,
 			const PipelineConfigurationInfo &configInfo);
-		~Pipeline(); //TODO: implement
+		~LightBoxPipeline(); //TODO: implement
 
-		Pipeline(const Pipeline&) = delete;
-		void operator=(const Pipeline&) = delete;
+		LightBoxPipeline(const LightBoxPipeline&) = delete;
+		void operator=(const LightBoxPipeline&) = delete;
+
+		void bind(VkCommandBuffer commandBuffer);
 
 		static PipelineConfigurationInfo defaultPipelineConfigInfo(uint32_t width, uint32_t height);
 	private:

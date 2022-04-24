@@ -1,4 +1,6 @@
 #include "lightBox_pipeline.h"
+#include "lightBox_model.h"
+
 #include <fstream>
 #include <stdexcept>
 #include <iostream>
@@ -6,7 +8,7 @@
 
 namespace lightBox {
 
-	Pipeline::Pipeline(
+	LightBoxPipeline::LightBoxPipeline(
 		LightBoxDevice & device,
 		const std::string vertFilePath,
 		const std::string fragFilePath,
@@ -15,14 +17,19 @@ namespace lightBox {
 		createGraphicsPipeline(vertFilePath, fragFilePath, configInfo);
 	}
 
-	Pipeline::~Pipeline()
+	LightBoxPipeline::~LightBoxPipeline()
 	{
 		vkDestroyShaderModule(lightBoxDevice.device(), vertShaderModule, nullptr);
 		vkDestroyShaderModule(lightBoxDevice.device(), fragShaderModule, nullptr);
 		vkDestroyPipeline(lightBoxDevice.device(), graphicsPipeline, nullptr);
 	}
 
-	PipelineConfigurationInfo Pipeline::defaultPipelineConfigInfo(uint32_t width, uint32_t height)
+	void LightBoxPipeline::bind(VkCommandBuffer commandBuffer)
+	{
+		vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline);
+	}
+
+	PipelineConfigurationInfo LightBoxPipeline::defaultPipelineConfigInfo(uint32_t width, uint32_t height)
 	{
 		PipelineConfigurationInfo configInfo{};
 		configInfo.inputAssemblyInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
@@ -39,12 +46,6 @@ namespace lightBox {
 		configInfo.scissor.offset = { 0, 0 };
 		configInfo.scissor.extent = { width, height };
 
-		configInfo.viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
-		configInfo.viewportInfo.viewportCount = 1;
-		configInfo.viewportInfo.pViewports = &configInfo.viewport;
-		configInfo.viewportInfo.scissorCount = 1;
-		configInfo.viewportInfo.pScissors = &configInfo.scissor;
-
 		configInfo.rasterizationInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
 		configInfo.rasterizationInfo.depthBiasEnable = VK_FALSE;
 		configInfo.rasterizationInfo.rasterizerDiscardEnable = VK_FALSE;
@@ -57,6 +58,14 @@ namespace lightBox {
 		configInfo.rasterizationInfo.depthBiasClamp = 0.0f;				// Optional
 		configInfo.rasterizationInfo.depthBiasSlopeFactor = 0.0f;		// Optional
 
+		configInfo.multisampleInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
+		configInfo.multisampleInfo.sampleShadingEnable = VK_FALSE;
+		configInfo.multisampleInfo.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
+		configInfo.multisampleInfo.minSampleShading = 1.0f;
+		configInfo.multisampleInfo.pSampleMask = nullptr;
+		configInfo.multisampleInfo.alphaToCoverageEnable = VK_FALSE;
+		configInfo.multisampleInfo.alphaToOneEnable = VK_FALSE;
+
 		configInfo.colorBlendAttachment.colorWriteMask =
 			VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT |
 			VK_COLOR_COMPONENT_A_BIT;
@@ -66,18 +75,8 @@ namespace lightBox {
 		configInfo.colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ZERO;
 		configInfo.colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;
 		configInfo.colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-		configInfo.colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ZERO;
+		configInfo.colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
 		configInfo.colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
-
-		configInfo.colorBlendInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
-		configInfo.colorBlendInfo.logicOpEnable = VK_FALSE;
-		configInfo.colorBlendInfo.logicOp = VK_LOGIC_OP_COPY; // Optional
-		configInfo.colorBlendInfo.attachmentCount = 1;
-		configInfo.colorBlendInfo.pAttachments = &configInfo.colorBlendAttachment;
-		configInfo.colorBlendInfo.blendConstants[0] = 0.0f; // Optional
-		configInfo.colorBlendInfo.blendConstants[1] = 0.0f; // Optional
-		configInfo.colorBlendInfo.blendConstants[2] = 0.0f; // Optional
-		configInfo.colorBlendInfo.blendConstants[3] = 0.0f; // Optional
 
 		configInfo.depthStencilInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
 		configInfo.depthStencilInfo.depthTestEnable = VK_TRUE;
@@ -90,12 +89,10 @@ namespace lightBox {
 		configInfo.depthStencilInfo.front = {};
 		configInfo.depthStencilInfo.back = {};
 
-
-
 		return configInfo;
 	}
 
-	std::vector<char> lightBox::Pipeline::readFile(const std::string & filepath)
+	std::vector<char> lightBox::LightBoxPipeline::readFile(const std::string & filepath)
 	{
 		std::ifstream file{ filepath, std::ios::ate | std::ios::binary };
 		if (!file.is_open()) {
@@ -110,7 +107,7 @@ namespace lightBox {
 		file.close();
 		return buffer;
 	}
-	void Pipeline::createGraphicsPipeline(
+	void LightBoxPipeline::createGraphicsPipeline(
 		const std::string & vertFilepath,
 		const std::string & fragFilePath,
 		const PipelineConfigurationInfo & configInfo)
@@ -146,12 +143,34 @@ namespace lightBox {
 		shaderStages[1].pNext = nullptr;
 		shaderStages[1].pSpecializationInfo = nullptr;
 
+		auto bindingDescriptions = LightBoxModel::Vertex::getBindingDescriptions();
+		auto attributeDescriptions = LightBoxModel::Vertex::getAttributeDescriptions();
+
 		VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
 		vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-		vertexInputInfo.vertexAttributeDescriptionCount = 0;
-		vertexInputInfo.vertexBindingDescriptionCount = 0;
-		vertexInputInfo.pVertexAttributeDescriptions = nullptr;
-		vertexInputInfo.pVertexBindingDescriptions = nullptr;
+		vertexInputInfo.vertexAttributeDescriptionCount = static_cast<uint32_t>(attributeDescriptions.size());
+		vertexInputInfo.vertexBindingDescriptionCount = static_cast<uint32_t>(bindingDescriptions.size());;
+		vertexInputInfo.pVertexAttributeDescriptions = attributeDescriptions.data();
+		vertexInputInfo.pVertexBindingDescriptions = bindingDescriptions.data();
+
+		VkPipelineViewportStateCreateInfo viewportInfo{};
+		viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+		viewportInfo.viewportCount = 1;
+		viewportInfo.pViewports = &configInfo.viewport;
+		viewportInfo.scissorCount = 1;
+		viewportInfo.pScissors = &configInfo.scissor;
+
+		VkPipelineColorBlendStateCreateInfo colorBlendInfo{};
+		colorBlendInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
+		colorBlendInfo.logicOpEnable = VK_FALSE;
+		colorBlendInfo.logicOp = VK_LOGIC_OP_COPY; // Optional
+		colorBlendInfo.attachmentCount = 1;
+		colorBlendInfo.pAttachments = &configInfo.colorBlendAttachment;
+		colorBlendInfo.blendConstants[0] = 0.0f; // Optional
+		colorBlendInfo.blendConstants[1] = 0.0f; // Optional
+		colorBlendInfo.blendConstants[2] = 0.0f; // Optional
+		colorBlendInfo.blendConstants[3] = 0.0f; // Optional
+
 
 		VkGraphicsPipelineCreateInfo pipelineInfo{};
 		pipelineInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
@@ -159,12 +178,12 @@ namespace lightBox {
 		pipelineInfo.pStages = shaderStages;
 		pipelineInfo.pVertexInputState = &vertexInputInfo;
 		pipelineInfo.pInputAssemblyState = &configInfo.inputAssemblyInfo;
-		pipelineInfo.pViewportState = &configInfo.viewportInfo;
+		pipelineInfo.pViewportState = &viewportInfo;
 		pipelineInfo.pRasterizationState = &configInfo.rasterizationInfo;
 		pipelineInfo.pMultisampleState = &configInfo.multisampleInfo;
-		pipelineInfo.pColorBlendState = &configInfo.colorBlendInfo;
+		pipelineInfo.pColorBlendState = &colorBlendInfo;
 		pipelineInfo.pDepthStencilState = &configInfo.depthStencilInfo;
-		pipelineInfo.pDepthStencilState = nullptr;
+		pipelineInfo.pDynamicState = nullptr;
 
 		pipelineInfo.layout = configInfo.pipelineLayout;
 		pipelineInfo.renderPass = configInfo.renderPass;
@@ -178,7 +197,7 @@ namespace lightBox {
 			throw std::runtime_error("Failed to create graphics pipelines");
 		}
 	}
-	void Pipeline::createShaderModule(const std::vector<char>& code, VkShaderModule * shaderModule)
+	void LightBoxPipeline::createShaderModule(const std::vector<char>& code, VkShaderModule * shaderModule)
 	{
 		VkShaderModuleCreateInfo createInfo{};
 		createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
