@@ -16,6 +16,7 @@ namespace lightBox {
 
 		struct Vertex {
 			glm::vec2 position;
+			glm::vec3 color;
 
 
 			static std::vector<VkVertexInputBindingDescription> getBindingDescriptions();
@@ -26,7 +27,7 @@ namespace lightBox {
 		~LightBoxModel();
 
 		LightBoxModel(const LightBoxModel &) = delete;
-		void operator=(const LightBoxModel &) = delete;
+		LightBoxModel &operator=(const LightBoxModel &) = delete;
 
 		void bind(VkCommandBuffer commandBuffer);
 		void draw(VkCommandBuffer commandBuffer);

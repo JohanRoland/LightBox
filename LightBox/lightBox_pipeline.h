@@ -30,7 +30,7 @@ namespace lightBox {
 		~LightBoxPipeline(); //TODO: implement
 
 		LightBoxPipeline(const LightBoxPipeline&) = delete;
-		void operator=(const LightBoxPipeline&) = delete;
+		LightBoxPipeline &operator=(const LightBoxPipeline&) = delete;
 
 		void bind(VkCommandBuffer commandBuffer);
 

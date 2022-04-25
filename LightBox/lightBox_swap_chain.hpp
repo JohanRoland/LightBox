@@ -19,7 +19,7 @@ class LightBoxSwapChain {
   ~LightBoxSwapChain();
 
   LightBoxSwapChain(const LightBoxSwapChain &) = delete;
-  void operator=(const LightBoxSwapChain &) = delete;
+  LightBoxSwapChain &operator=(const LightBoxSwapChain &) = delete;
 
   VkFramebuffer getFrameBuffer(int index) { return swapChainFramebuffers[index]; }
   VkRenderPass getRenderPass() { return renderPass; }

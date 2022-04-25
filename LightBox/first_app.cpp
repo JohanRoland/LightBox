@@ -44,9 +44,9 @@ namespace lightBox {
 	{
 		std::vector<LightBoxModel::Vertex> vertices
 		{
-			{{0.0f, -0.5f}},
-			{{0.5f, 0.5f}},
-			{{-0.5f, 0.5f}}
+			{{0.0f, -0.5f}, {1.0f, 0.0f, 0.0f}},
+			{{0.5f, 0.5f}, {0.0f, 1.0f, 0.0f}},
+			{{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}
 		};
 
 		lightBoxModel = std::make_unique<LightBoxModel>(lightBoxDevice, vertices);

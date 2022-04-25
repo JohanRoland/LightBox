@@ -41,7 +41,7 @@ class LightBoxDevice {
 
   // Not copyable or movable
   LightBoxDevice(const LightBoxDevice &) = delete;
-  void operator=(const LightBoxDevice &) = delete;
+  LightBoxDevice &operator=(const LightBoxDevice &) = delete;
   LightBoxDevice(LightBoxDevice &&) = delete;
   LightBoxDevice &operator=(LightBoxDevice &&) = delete;
 
