@@ -8,13 +8,18 @@
 namespace lightBox {
 
 	struct PipelineConfigurationInfo {
-		VkViewport viewport;
-		VkRect2D scissor;
+		PipelineConfigurationInfo(const PipelineConfigurationInfo&) = delete;
+		PipelineConfigurationInfo& operator=(const PipelineConfigurationInfo&) = delete;
+
+		VkPipelineViewportStateCreateInfo viewportInfo;
 		VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
 		VkPipelineRasterizationStateCreateInfo rasterizationInfo;
 		VkPipelineMultisampleStateCreateInfo multisampleInfo;
 		VkPipelineColorBlendAttachmentState colorBlendAttachment;
 		VkPipelineDepthStencilStateCreateInfo depthStencilInfo;
+		std::vector<VkDynamicState> dynamicStateEnables;
+		VkPipelineDynamicStateCreateInfo dynamicStateCreateInfo;
+
 		VkPipelineLayout pipelineLayout = nullptr;
 		VkRenderPass renderPass = nullptr;
 		uint32_t subpass = 0;
@@ -34,7 +39,7 @@ namespace lightBox {
 
 		void bind(VkCommandBuffer commandBuffer);
 
-		static PipelineConfigurationInfo defaultPipelineConfigInfo(uint32_t width, uint32_t height);
+		static void defaultPipelineConfigInfo(PipelineConfigurationInfo& configInfo);
 	private:
 		static std::vector<char> readFile(const std::string& filepath);
 

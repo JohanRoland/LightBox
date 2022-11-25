@@ -29,22 +29,17 @@ namespace lightBox {
 		vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline);
 	}
 
-	PipelineConfigurationInfo LightBoxPipeline::defaultPipelineConfigInfo(uint32_t width, uint32_t height)
+	void LightBoxPipeline::defaultPipelineConfigInfo(PipelineConfigurationInfo& configInfo)
 	{
-		PipelineConfigurationInfo configInfo{};
 		configInfo.inputAssemblyInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
 		configInfo.inputAssemblyInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
 		configInfo.inputAssemblyInfo.primitiveRestartEnable = VK_FALSE;
 
-		configInfo.viewport.x = 0.0f;
-		configInfo.viewport.y = 0.0f;
-		configInfo.viewport.width = static_cast<float>(width);
-		configInfo.viewport.height = static_cast<float>(width);
-		configInfo.viewport.minDepth = 0.0f;
-		configInfo.viewport.maxDepth = 1.0f;
-
-		configInfo.scissor.offset = { 0, 0 };
-		configInfo.scissor.extent = { width, height };
+		configInfo.viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+		configInfo.viewportInfo.viewportCount = 1;
+		configInfo.viewportInfo.pViewports = nullptr;
+		configInfo.viewportInfo.scissorCount = 1;
+		configInfo.viewportInfo.pScissors = nullptr;
 
 		configInfo.rasterizationInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
 		configInfo.rasterizationInfo.depthBiasEnable = VK_FALSE;
@@ -89,7 +84,11 @@ namespace lightBox {
 		configInfo.depthStencilInfo.front = {};
 		configInfo.depthStencilInfo.back = {};
 
-		return configInfo;
+		configInfo.dynamicStateEnables = { VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR };
+		configInfo.dynamicStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
+		configInfo.dynamicStateCreateInfo.pDynamicStates = configInfo.dynamicStateEnables.data();
+		configInfo.dynamicStateCreateInfo.dynamicStateCount = static_cast<int32_t>(configInfo.dynamicStateEnables.size());
+		configInfo.dynamicStateCreateInfo.flags = 0;
 	}
 
 	std::vector<char> lightBox::LightBoxPipeline::readFile(const std::string & filepath)
@@ -153,12 +152,14 @@ namespace lightBox {
 		vertexInputInfo.pVertexAttributeDescriptions = attributeDescriptions.data();
 		vertexInputInfo.pVertexBindingDescriptions = bindingDescriptions.data();
 
+		/*
 		VkPipelineViewportStateCreateInfo viewportInfo{};
 		viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
 		viewportInfo.viewportCount = 1;
 		viewportInfo.pViewports = &configInfo.viewport;
 		viewportInfo.scissorCount = 1;
 		viewportInfo.pScissors = &configInfo.scissor;
+		*/
 
 		VkPipelineColorBlendStateCreateInfo colorBlendInfo{};
 		colorBlendInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
@@ -178,12 +179,12 @@ namespace lightBox {
 		pipelineInfo.pStages = shaderStages;
 		pipelineInfo.pVertexInputState = &vertexInputInfo;
 		pipelineInfo.pInputAssemblyState = &configInfo.inputAssemblyInfo;
-		pipelineInfo.pViewportState = &viewportInfo;
+		pipelineInfo.pViewportState = &configInfo.viewportInfo;
 		pipelineInfo.pRasterizationState = &configInfo.rasterizationInfo;
 		pipelineInfo.pMultisampleState = &configInfo.multisampleInfo;
 		pipelineInfo.pColorBlendState = &colorBlendInfo;
 		pipelineInfo.pDepthStencilState = &configInfo.depthStencilInfo;
-		pipelineInfo.pDynamicState = nullptr;
+		pipelineInfo.pDynamicState = &configInfo.dynamicStateCreateInfo;
 
 		pipelineInfo.layout = configInfo.pipelineLayout;
 		pipelineInfo.renderPass = configInfo.renderPass;

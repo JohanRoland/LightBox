@@ -5,6 +5,8 @@
 #include <vector>
 
 
+#define CLASS_WINDOW "classWindow"
+
 //#include <glm/glm.hpp>
 //#include <SDL2/SDL.h>
 //#include <SDL2/SDL_syswm.h>
@@ -38,6 +40,36 @@ namespace lightBox {
 
 	}
 
+	/*
+	
+	void LightBoxWindow::frameBufferResizeCallback(SDL_Window * window, int width, int hight)
+	{
+		auto lightBoxWidow = reinterpret_cast<LightBoxWindow*>(SDL_GetWindowData(window, CLASS_WINDOW));
+		lightBoxWidow->frameBufferResized = true;
+		lightBoxWidow->width = width;
+		lightBoxWidow->height = hight;
+
+	}
+	*/
+	 int LightBoxWindow::resizingEventWatcher(void* data, SDL_Event* event) {
+		std::cout << "Hello \n";
+		if (SDL_WINDOWEVENT  == event->type &&
+			SDL_WINDOWEVENT_RESIZED == event->window.event) {
+			SDL_Window* win = SDL_GetWindowFromID(event->window.windowID);
+			if (win == (SDL_Window*)data) {
+				printf("resizing.....\n");
+				int width = 0;
+				int	hight = 0;
+				SDL_GetWindowSize(win, &width, &hight);
+				auto lightBoxWidow = reinterpret_cast<LightBoxWindow*>(SDL_GetWindowData(win, CLASS_WINDOW));
+				lightBoxWidow->frameBufferResized = true;
+				lightBoxWidow->width = width;
+				lightBoxWidow->height = hight;
+			}
+		}
+		return 0;
+	}
+
 	int LightBoxWindow::initWindow()
 	{
 		// Create an SDL window that supports Vulkan rendering.
@@ -46,7 +78,7 @@ namespace lightBox {
 			return 1;
 		}
 		lightBoxWindow = SDL_CreateWindow("Vulkan Window", SDL_WINDOWPOS_CENTERED,
-			SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_VULKAN);
+			SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_VULKAN | SDL_WINDOW_RESIZABLE);
 		if (lightBoxWindow == NULL) {
 			std::cout << "Could not create SDL window." << std::endl;
 			return 1;
@@ -63,7 +95,14 @@ namespace lightBox {
 			std::cout << "Could not get the names of required instance extensions from SDL." << std::endl;
 			return 1;
 		}
+		/*
+		if (!SDL_SetWindowData(lightBoxWindow, CLASS_WINDOW, this)) {
+			std::cout << "Could not attach window class to SDL window object." << std::endl;
+			return 1;
+		}*/
 
+		SDL_SetWindowData(lightBoxWindow, CLASS_WINDOW, this);
+		SDL_AddEventWatch(resizingEventWatcher, lightBoxWindow);
 
 		return 0;
 	}

@@ -19,17 +19,21 @@ namespace lightBox {
 		LightBoxWindow operator=(const LightBoxWindow &) = delete;
 
 		VkExtent2D getExtent();
+		bool wasWindowResized() { return frameBufferResized; }
+		void resetWindowResizedFlag(){ frameBufferResized = false; }
 
 		void createWindowSurface(VkInstance instance, VkSurfaceKHR *surface);
 		std::vector<const char*> getRequiredExtensions(bool enableValidationLayers);
 
 	private:
+		static int resizingEventWatcher(void* data, SDL_Event* event);
 		int initWindow();
 
 
 
-		const int width;
-		const int height;
+		int width;
+		int height;
+		bool frameBufferResized = false;
 
 		std::string windowName;
 		SDL_Window* lightBoxWindow;

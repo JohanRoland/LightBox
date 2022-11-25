@@ -7,7 +7,7 @@ namespace lightBox {
 	{
 		loadModels();
 		createPipelineLayout();
-		createPipeline();
+		recreateSwapChain();
 		createCommandBuffers();
 
 	}
@@ -24,8 +24,31 @@ namespace lightBox {
 			SDL_Event event;
 			while (SDL_PollEvent(&event)) {
 
-				switch (event.type) {
-
+				switch (event.type) 
+				{
+				case SDL_WINDOWEVENT:
+					switch (event.window.event) 
+					{
+						case SDL_WINDOWEVENT_RESIZED:
+							/*
+							SDL_Window* win = SDL_GetWindowFromID(event->window.windowID);
+							if (win == (SDL_Window*)data) {
+								printf("resizing.....\n");
+								int width = 0;
+								int	hight = 0;
+								SDL_GetWindowSize(win, &width, &hight);
+								auto lightBoxWidow = reinterpret_cast<LightBoxWindow*>(SDL_GetWindowData(win, "classWindow"));
+								lightBoxWidow->frameBufferResized = true;
+								lightBoxWidow->width = width;
+								lightBoxWidow->height = hight;
+							}
+							*/
+						break;
+						default:
+							// Do nothing.
+							break;
+					}
+					break;
 				case SDL_QUIT:
 					stillRunning = false;
 					break;
@@ -74,10 +97,13 @@ namespace lightBox {
 
 	void FirstApp::createPipeline()
 	{
-		auto pipelineConfig = 
-			LightBoxPipeline::defaultPipelineConfigInfo(lightBoxSwapChain.width(), lightBoxSwapChain.height());
+		assert(nullptr != lightBoxSwapChain && "Swap chain is null when trying to createing pipeline!\n");
+		assert(nullptr != pipelineLayout && "PipelineLayout is null when trying to createing pipeline!\n");
 
-		pipelineConfig.renderPass = lightBoxSwapChain.getRenderPass();
+		PipelineConfigurationInfo pipelineConfig{};
+		LightBoxPipeline::defaultPipelineConfigInfo(pipelineConfig);
+
+		pipelineConfig.renderPass = lightBoxSwapChain->getRenderPass();
 		pipelineConfig.pipelineLayout = pipelineLayout;
 		lightBoxPipeline = std::make_unique<LightBoxPipeline>(
 			lightBoxDevice,
@@ -88,7 +114,7 @@ namespace lightBox {
 
 	void FirstApp::createCommandBuffers()
 	{
-		commandBuffers.resize(lightBoxSwapChain.imageCount());
+		commandBuffers.resize(lightBoxSwapChain->imageCount());
 
 		VkCommandBufferAllocateInfo allocInfo{};
 		
@@ -104,65 +130,123 @@ namespace lightBox {
 			throw std::runtime_error("Failed to allocate command buffers!");
 		}
 
-		for (int i = 0; i < commandBuffers.size(); i++) 
-		{
-			VkCommandBufferBeginInfo beginInfo{};
-			beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-			
-			const VkResult beginSuccess = vkBeginCommandBuffer(commandBuffers[i], &beginInfo);
+	}
 
-			if (VK_SUCCESS != beginSuccess)
-			{
-				throw std::runtime_error("Failed to begin recording command buffer!");
-			}
+	void FirstApp::freeComandBuffers()
+	{
+		vkFreeCommandBuffers(lightBoxDevice.device(), lightBoxDevice.getCommandPool(), static_cast<uint32_t>(commandBuffers.size()), commandBuffers.data());
 
-			VkRenderPassBeginInfo renderPassInfo{};
-			renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-			renderPassInfo.renderPass = lightBoxSwapChain.getRenderPass();
-			renderPassInfo.framebuffer = lightBoxSwapChain.getFrameBuffer(i);
-
-			renderPassInfo.renderArea.offset = {0 ,0 };
-			renderPassInfo.renderArea.extent = lightBoxSwapChain.getSwapChainExtent();
-
-			std::array<VkClearValue, 2> clearValues{};
-			clearValues[0].color = { 0.1f, 0.1f, 0.1f, 0.1f };
-			clearValues[1].depthStencil = { 1.0f, 0};
-			renderPassInfo.clearValueCount = static_cast<uint32_t>(clearValues.size());
-			renderPassInfo.pClearValues = clearValues.data();
-
-			vkCmdBeginRenderPass(commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
-
-			lightBoxPipeline->bind(commandBuffers[i]);
-			lightBoxModel->bind(commandBuffers[i]);
-			lightBoxModel->draw(commandBuffers[i]);
-
-			vkCmdEndRenderPass(commandBuffers[i]);
-			VkResult endCmdBuffsuccess = vkEndCommandBuffer(commandBuffers[i]);
-			if (VK_SUCCESS != endCmdBuffsuccess)
-			{
-				throw std::runtime_error("Failed to end command buffer!");
-			}
-		}
-
-
+		commandBuffers.clear();
 	}
 
 	void FirstApp::drawFrame()
 	{
 		uint32_t imageIndex;
-		const VkResult resultSuccess = lightBoxSwapChain.acquireNextImage(&imageIndex);
+		const VkResult resultSuccess = lightBoxSwapChain->acquireNextImage(&imageIndex);
+
+		if (resultSuccess == VK_ERROR_OUT_OF_DATE_KHR)
+		{
+			recreateSwapChain();
+			return;
+		}
 
 		if (VK_SUCCESS != resultSuccess && VK_SUBOPTIMAL_KHR != resultSuccess)
 		{
 			throw std::runtime_error("Failed to acquire swap chain image!");
 		}
 
-		const VkResult resultSubmitBuffer = lightBoxSwapChain.submitCommandBuffers(&commandBuffers[imageIndex], &imageIndex);
+		recordCommandBuffer(imageIndex);
+		const VkResult resultSubmitBuffer = lightBoxSwapChain->submitCommandBuffers(&commandBuffers[imageIndex], &imageIndex);
+		if (VK_ERROR_OUT_OF_DATE_KHR == resultSubmitBuffer ||
+			VK_SUBOPTIMAL_KHR == resultSubmitBuffer ||
+			lightBoxWindow.wasWindowResized()) 
+		{
+			lightBoxWindow.resetWindowResizedFlag();
+			recreateSwapChain();
+			return;
+		}
 		if (VK_SUCCESS != resultSubmitBuffer)
 		{
 			throw std::runtime_error("Failed to present/submit swap chain image!");
 		}
 
+	}
+
+	void FirstApp::recreateSwapChain()
+	{
+		auto extent = lightBoxWindow.getExtent();
+		while (0 == extent.width || 0 == extent.height) {
+			extent = lightBoxWindow.getExtent();
+			SDL_WaitEvent(NULL); // Possibly wrong check
+		}
+
+		vkDeviceWaitIdle(lightBoxDevice.device());
+		
+		if (lightBoxSwapChain == nullptr) {
+			lightBoxSwapChain = std::make_unique<LightBoxSwapChain>(lightBoxDevice, extent);
+		}
+		else {
+			lightBoxSwapChain = std::make_unique<LightBoxSwapChain>(lightBoxDevice, extent, std::move(lightBoxSwapChain));
+
+			if (lightBoxSwapChain->imageCount() != commandBuffers.size()) {
+				freeComandBuffers();
+				createCommandBuffers();
+			}
+		}
+
+		createPipeline();
+	}
+
+	void FirstApp::recordCommandBuffer(int imageIndex)
+	{
+		VkCommandBufferBeginInfo beginInfo{};
+		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+
+		const VkResult beginSuccess = vkBeginCommandBuffer(commandBuffers[imageIndex], &beginInfo);
+
+		if (VK_SUCCESS != beginSuccess)
+		{
+			throw std::runtime_error("Failed to begin recording command buffer!");
+		}
+
+		VkRenderPassBeginInfo renderPassInfo{};
+		renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+		renderPassInfo.renderPass = lightBoxSwapChain->getRenderPass();
+		renderPassInfo.framebuffer = lightBoxSwapChain->getFrameBuffer(imageIndex);
+
+		renderPassInfo.renderArea.offset = { 0 ,0 };
+		renderPassInfo.renderArea.extent = lightBoxSwapChain->getSwapChainExtent();
+
+		std::array<VkClearValue, 2> clearValues{};
+		clearValues[0].color = { 0.1f, 0.1f, 0.1f, 0.1f };
+		clearValues[1].depthStencil = { 1.0f, 0 };
+		renderPassInfo.clearValueCount = static_cast<uint32_t>(clearValues.size());
+		renderPassInfo.pClearValues = clearValues.data();
+
+		vkCmdBeginRenderPass(commandBuffers[imageIndex], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+
+		VkViewport viewport{};
+		viewport.x = 0.0f;
+		viewport.y = 0.0f;
+		viewport.width = static_cast<float>(lightBoxSwapChain->getSwapChainExtent().width);
+		viewport.height = static_cast<float>(lightBoxSwapChain->getSwapChainExtent().height);
+		viewport.minDepth = 0.0f;
+		viewport.maxDepth = 1.0f;
+		vkCmdSetViewport(commandBuffers[imageIndex], 0, 1, &viewport);
+
+		VkRect2D sicssor{ {0,0}, lightBoxSwapChain->getSwapChainExtent() };
+		vkCmdSetScissor(commandBuffers[imageIndex], 0, 1, &sicssor);
+
+		lightBoxPipeline->bind(commandBuffers[imageIndex]);
+		lightBoxModel->bind(commandBuffers[imageIndex]);
+		lightBoxModel->draw(commandBuffers[imageIndex]);
+
+		vkCmdEndRenderPass(commandBuffers[imageIndex]);
+		VkResult endCmdBuffsuccess = vkEndCommandBuffer(commandBuffers[imageIndex]);
+		if (VK_SUCCESS != endCmdBuffsuccess)
+		{
+			throw std::runtime_error("Failed to end command buffer!");
+		}
 	}
 
 }

@@ -28,12 +28,14 @@ namespace lightBox {
 		void createPipelineLayout();
 		void createPipeline();
 		void createCommandBuffers();
+		void freeComandBuffers();
 		void drawFrame();
-
+		void recreateSwapChain();
+		void recordCommandBuffer(int imageIndex);
 
 		LightBoxWindow lightBoxWindow{ WIDTH, HEIGHT, "Hello, first app" };
 		LightBoxDevice lightBoxDevice{ lightBoxWindow,  };
-		LightBoxSwapChain lightBoxSwapChain{ lightBoxDevice, lightBoxWindow.getExtent() };
+		std::unique_ptr<LightBoxSwapChain> lightBoxSwapChain;
 		std::unique_ptr<LightBoxPipeline> lightBoxPipeline;
 		VkPipelineLayout pipelineLayout;
 		std::vector<VkCommandBuffer> commandBuffers;
