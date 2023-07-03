@@ -1,11 +1,22 @@
 #include "first_app.h"
 
 #include <stdexcept>
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include <glm/glm.hpp>
+#include <glm/gtc/constants.hpp>
 
 namespace lightBox {
+	struct SimplePushConstantData {
+	public:
+		glm::mat2 transform{1.f};
+		glm::vec2 offset{};
+		alignas(16) glm::vec3 color{};
+	};
+
 	FirstApp::FirstApp()
 	{
-		loadModels();
+		loadGameObjects();
 		createPipelineLayout();
 		recreateSwapChain();
 		createCommandBuffers();
@@ -63,7 +74,7 @@ namespace lightBox {
 		vkDeviceWaitIdle(lightBoxDevice.device());
 	}
 
-	void FirstApp::loadModels()
+	void FirstApp::loadGameObjects()
 	{
 		std::vector<LightBoxModel::Vertex> vertices
 		{
@@ -72,18 +83,32 @@ namespace lightBox {
 			{{-0.5f, 0.5f}, {0.0f, 0.0f, 1.0f}}
 		};
 
-		lightBoxModel = std::make_unique<LightBoxModel>(lightBoxDevice, vertices);
+		auto lightBoxModel = std::make_shared<LightBoxModel>(lightBoxDevice, vertices);
 
+		auto triangle = LightBoxGameObject::createGameObject();
+		triangle.model = lightBoxModel;
+		triangle.color = { 0.1f, 0.8f, 0.1f };
+		triangle.transform2D.translation.x = 0.2f;
+		triangle.transform2D.scale = { 2.0f, 0.5f };
+		triangle.transform2D.rotation = 0.25f * glm::two_pi<float>();
+
+		gameObjects.push_back(std::move(triangle));
 	}
 
 	void FirstApp::createPipelineLayout()
 	{
+
+		VkPushConstantRange pushConstantRange{};
+		pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
+		pushConstantRange.offset = 0;
+		pushConstantRange.size = sizeof(SimplePushConstantData);
+
 		VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
 		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
 		pipelineLayoutInfo.setLayoutCount = 0;
 		pipelineLayoutInfo.pSetLayouts = nullptr;
-		pipelineLayoutInfo.pushConstantRangeCount = 0;
-		pipelineLayoutInfo.pPushConstantRanges = nullptr;
+		pipelineLayoutInfo.pushConstantRangeCount = 1;
+		pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange;
 		pipelineLayoutInfo.pNext = nullptr;
 
 		auto success = vkCreatePipelineLayout(lightBoxDevice.device(), &pipelineLayoutInfo, nullptr, &pipelineLayout);
@@ -218,7 +243,7 @@ namespace lightBox {
 		renderPassInfo.renderArea.extent = lightBoxSwapChain->getSwapChainExtent();
 
 		std::array<VkClearValue, 2> clearValues{};
-		clearValues[0].color = { 0.1f, 0.1f, 0.1f, 0.1f };
+		clearValues[0].color = { 0.01f, 0.01f, 0.01f, 1.0f };
 		clearValues[1].depthStencil = { 1.0f, 0 };
 		renderPassInfo.clearValueCount = static_cast<uint32_t>(clearValues.size());
 		renderPassInfo.pClearValues = clearValues.data();
@@ -237,15 +262,38 @@ namespace lightBox {
 		VkRect2D sicssor{ {0,0}, lightBoxSwapChain->getSwapChainExtent() };
 		vkCmdSetScissor(commandBuffers[imageIndex], 0, 1, &sicssor);
 
-		lightBoxPipeline->bind(commandBuffers[imageIndex]);
-		lightBoxModel->bind(commandBuffers[imageIndex]);
-		lightBoxModel->draw(commandBuffers[imageIndex]);
+		
+		renderGameObjects(commandBuffers[imageIndex]);
+
+
 
 		vkCmdEndRenderPass(commandBuffers[imageIndex]);
 		VkResult endCmdBuffsuccess = vkEndCommandBuffer(commandBuffers[imageIndex]);
 		if (VK_SUCCESS != endCmdBuffsuccess)
 		{
 			throw std::runtime_error("Failed to end command buffer!");
+		}
+	}
+
+	void FirstApp::renderGameObjects(VkCommandBuffer commandBuffer)
+	{
+		lightBoxPipeline->bind(commandBuffer);
+		for (auto& object : gameObjects) {
+
+			SimplePushConstantData push{
+				.transform{object.transform2D.mat2()},
+				.offset{object.transform2D.translation},
+				.color{object.color}};
+
+			vkCmdPushConstants(
+				commandBuffer,
+				pipelineLayout,
+				VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
+				0,
+				sizeof(SimplePushConstantData),
+				&push);
+			object.model->bind(commandBuffer);
+			object.model->draw(commandBuffer);
 		}
 	}
 

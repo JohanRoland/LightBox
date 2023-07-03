@@ -8,6 +8,7 @@
 namespace lightBox {
 
 	struct PipelineConfigurationInfo {
+		PipelineConfigurationInfo() = default;
 		PipelineConfigurationInfo(const PipelineConfigurationInfo&) = delete;
 		PipelineConfigurationInfo& operator=(const PipelineConfigurationInfo&) = delete;
 

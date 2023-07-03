@@ -62,6 +62,9 @@
     <ClInclude Include="lightBox_model.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="lightBox_game_object.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="compile.bat" />
