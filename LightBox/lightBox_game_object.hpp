@@ -15,8 +15,8 @@ namespace lightBox {
 			const float sinRotation = glm::sin(rotation);
 			const float cosRotation = glm::cos(rotation);
 			glm::mat2 rotMatrix{ {cosRotation, sinRotation},{-sinRotation,cosRotation} };
-
 			glm::mat2 scaleMatrix{ {scale.x, 0.0f}, {0.0f, scale.y} };
+
 			return rotMatrix * scaleMatrix;
 		}
 	};

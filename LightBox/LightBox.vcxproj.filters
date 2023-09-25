@@ -39,12 +39,21 @@
     <ClCompile Include="lightBox_model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lightBox_renderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lightBox_renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="simple_render_system.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lightBox_window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="first_app.h">
+    <ClInclude Include="first_app.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
@@ -63,6 +72,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lightBox_game_object.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="simple_render_system.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

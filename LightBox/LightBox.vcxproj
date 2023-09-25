@@ -191,13 +191,16 @@
     <ClCompile Include="first_app.cpp" />
     <ClCompile Include="lightBox_model.cpp" />
     <ClCompile Include="lightBox_pipeline.cpp" />
+    <ClCompile Include="lightBox_renderer.cpp" />
+    <ClCompile Include="lightBox_renderer.hpp" />
     <ClCompile Include="lightBox_window.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="lightBox_device.cpp" />
     <ClCompile Include="lightBox_swap_chain.cpp" />
+    <ClCompile Include="simple_render_system.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="first_app.h" />
+    <ClInclude Include="first_app.hpp" />
     <ClInclude Include="lightBox_game_object.hpp" />
     <ClInclude Include="lightBox_model.h" />
     <ClInclude Include="lightBox_pipeline.h" />
@@ -205,6 +208,7 @@
     <ClInclude Include="lightBox_device.hpp" />
     <ClInclude Include="lightBox_swap_chain.hpp" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="simple_render_system.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="compile.bat" />
