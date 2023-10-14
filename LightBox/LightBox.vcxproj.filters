@@ -48,6 +48,12 @@
     <ClCompile Include="simple_render_system.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="lightBox_camera.hpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lightBox_camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lightBox_window.h">

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "lightBox_camera.hpp"
 #include "lightBox_pipeline.h"
 #include "lightBox_device.hpp"
 #include "lightBox_swap_chain.hpp"
@@ -17,7 +18,7 @@ namespace lightBox {
 
 		SimpleRenderSystem(const SimpleRenderSystem&) = delete;
 		SimpleRenderSystem operator=(const SimpleRenderSystem&) = delete;
-		void renderGameObjects(VkCommandBuffer commandBuffer, std::vector<LightBoxGameObject> &gameObjects);
+		void renderGameObjects(VkCommandBuffer commandBuffer, std::vector<LightBoxGameObject> &gameObjects, const LightBoxCamera& camera);
 
 	private:
 		void createPipelineLayout();

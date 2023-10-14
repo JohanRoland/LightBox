@@ -19,6 +19,7 @@ namespace lightBox {
 		LightBoxRenderer operator=(const LightBoxRenderer&) = delete;
 
 		VkRenderPass getSwapChainRenderPass() const { return lightBoxSwapChain->getRenderPass(); }
+		float getAspectRatio() const { return lightBoxSwapChain->extentAspectRatio(); }
 		bool isFrameInProgress() const { return isFrameStarted; }
 		VkCommandBuffer getCurrentCommandBuffer() const {
 			assert(isFrameStarted && "Cannot not get command buffer when frame is not started");

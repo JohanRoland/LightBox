@@ -18,7 +18,7 @@ namespace lightBox {
 	VkCommandBuffer LightBoxRenderer::beginFrame()
 	{
 		assert(!isFrameStarted && "Can not call begin frame while frame is already in progress");
-		uint32_t imageIndex;
+
 		const VkResult resultSuccess = lightBoxSwapChain->acquireNextImage(&currentImageIndex);
 
 		if (resultSuccess == VK_ERROR_OUT_OF_DATE_KHR)

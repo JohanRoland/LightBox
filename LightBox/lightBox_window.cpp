@@ -83,7 +83,7 @@ namespace lightBox {
 			std::cout << "Could not create SDL window." << std::endl;
 			return 1;
 		}
-
+		
 		// Get WSI extensions from SDL (we can add more if we like - we just can't remove these)
 		unsigned extension_count;
 		if (!SDL_Vulkan_GetInstanceExtensions(lightBoxWindow, &extension_count, NULL)) {
@@ -95,6 +95,13 @@ namespace lightBox {
 			std::cout << "Could not get the names of required instance extensions from SDL." << std::endl;
 			return 1;
 		}
+/*
+		if (0 != SDL_RenderSetVSync(SDL_GetRenderer(lightBoxWindow), 1)) {
+			std::cout << "Failed to enable VSYNC." << std::endl;
+			return 1;
+		}
+		*/
+
 		/*
 		if (!SDL_SetWindowData(lightBoxWindow, CLASS_WINDOW, this)) {
 			std::cout << "Could not attach window class to SDL window object." << std::endl;

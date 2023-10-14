@@ -189,6 +189,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="first_app.cpp" />
+    <ClCompile Include="lightBox_camera.cpp" />
+    <ClCompile Include="lightBox_camera.hpp" />
     <ClCompile Include="lightBox_model.cpp" />
     <ClCompile Include="lightBox_pipeline.cpp" />
     <ClCompile Include="lightBox_renderer.cpp" />
