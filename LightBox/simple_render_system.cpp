@@ -76,9 +76,6 @@ namespace lightBox {
 		auto projectionView = camera.getProjection() * camera.getView();
 
 		for (auto& object : gameObjects) {
-			object.transform.rotation.y = glm::mod(object.transform.rotation.y + 0.01f, glm::two_pi<float>());
-			object.transform.rotation.x = glm::mod(object.transform.rotation.x + 0.005f, glm::two_pi<float>());
-
 			SimplePushConstantData push{
 				.transform{projectionView * object.transform.mat4()},
 				.color{object.color} };

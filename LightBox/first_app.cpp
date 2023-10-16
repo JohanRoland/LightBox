@@ -2,12 +2,18 @@
 
 #include "lightBox_camera.hpp"
 #include "simple_render_system.hpp"
+#include "keyboard_movement_controller.hpp"
+
+
 
 #include <stdexcept>
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 #include <glm/glm.hpp>
 #include <glm/gtc/constants.hpp>
+
+#include <chrono>
+
 
 namespace lightBox {
 
@@ -21,26 +27,30 @@ namespace lightBox {
 		SimpleRenderSystem simpleRenderSystem{ lightBoxDevice, lightBoxRenderer.getSwapChainRenderPass() };
 		LightBoxCamera camera{};
 
-		//camera.setViewDirection(glm::vec3(0.0f), glm::vec3(.5f, 0.0f, 1.0f)); 
-		camera.setViewTarget(glm::vec3(-2.0f), glm::vec3(0.0f, 0.0f, 2.5f));
+		auto viewerObject = LightBoxGameObject::createGameObject();
+		KeyboardMovementController cameraController{};
 
+		auto currentTime = std::chrono::high_resolution_clock::now();
 
 		bool stillRunning = true;
-		unsigned int currentTick = SDL_GetTicks();
-		unsigned int priviusTick = currentTick;
-
+		unsigned int priviusTick = SDL_GetTicks();
 		while (stillRunning) {
-			
-			auto currentTick = SDL_GetTicks();
-
-			auto delta = currentTick - priviusTick;
-
-
 			SDL_Event event;
 			while (SDL_PollEvent(&event)) {
+				unsigned int currentTick = SDL_GetTicks();
+				auto delta = currentTick - priviusTick;
+
+				auto newTime = std::chrono::high_resolution_clock::now();
+				float frameTime = std::chrono::duration<float, std::chrono::seconds::period>(newTime - currentTime).count();
+				currentTime = newTime;
 
 				switch (event.type) 
 				{
+				case SDL_KEYDOWN:
+					cameraController.moveInPlaneXZ(event.key.keysym.sym, frameTime, viewerObject);
+					camera.setViewYXZ(viewerObject.transform.translation, viewerObject.transform.rotation);
+					
+					break;
 				case SDL_WINDOWEVENT:
 					break;
 				case SDL_QUIT:
@@ -50,21 +60,21 @@ namespace lightBox {
 					// Do nothing.
 					break;
 				}
-			}
 
-			if (delta > 1000 / 60.0)
-			{
-				float aspect = lightBoxRenderer.getAspectRatio();
-				//camera.setOrthographicProjection(-aspect, aspect, -1.0f, 1.0f, -1.0f, 1.0f);
-				camera.setPerspectiveProjection(glm::radians(50.0f), aspect, 0.1f, 10.0f);
+				if (delta > 1000 / 60.0)
+				{
+					float aspect = lightBoxRenderer.getAspectRatio();
+					//camera.setOrthographicProjection(-aspect, aspect, -1.0f, 1.0f, -1.0f, 1.0f);
+					camera.setPerspectiveProjection(glm::radians(50.0f), aspect, 0.1f, 10.0f);
 
-				priviusTick = currentTick;
-				auto commandBuffer = lightBoxRenderer.beginFrame();
-				if (commandBuffer != nullptr) {
-					lightBoxRenderer.beginSwapChainRenderPass(commandBuffer);
-					simpleRenderSystem.renderGameObjects(commandBuffer, gameObjects, camera);
-					lightBoxRenderer.endSwapChainRenderPass(commandBuffer);
-					lightBoxRenderer.endFrame();
+					priviusTick = currentTick;
+					auto commandBuffer = lightBoxRenderer.beginFrame();
+					if (commandBuffer != nullptr) {
+						lightBoxRenderer.beginSwapChainRenderPass(commandBuffer);
+						simpleRenderSystem.renderGameObjects(commandBuffer, gameObjects, camera);
+						lightBoxRenderer.endSwapChainRenderPass(commandBuffer);
+						lightBoxRenderer.endFrame();
+					}
 				}
 			}
 		}

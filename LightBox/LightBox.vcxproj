@@ -189,6 +189,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="first_app.cpp" />
+    <ClCompile Include="keyboard_movement_controller.cpp" />
     <ClCompile Include="lightBox_camera.cpp" />
     <ClCompile Include="lightBox_camera.hpp" />
     <ClCompile Include="lightBox_model.cpp" />
@@ -203,6 +204,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="first_app.hpp" />
+    <ClInclude Include="keyboard_movement_controller.hpp" />
     <ClInclude Include="lightBox_game_object.hpp" />
     <ClInclude Include="lightBox_model.h" />
     <ClInclude Include="lightBox_pipeline.h" />
