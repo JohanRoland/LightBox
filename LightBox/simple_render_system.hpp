@@ -1,7 +1,7 @@
 #pragma once
 
 #include "lightBox_camera.hpp"
-#include "lightBox_pipeline.h"
+#include "lightBox_pipeline.hpp"
 #include "lightBox_device.hpp"
 #include "lightBox_swap_chain.hpp"
 #include "lightBox_game_object.hpp"

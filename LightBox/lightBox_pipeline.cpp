@@ -1,5 +1,5 @@
-#include "lightBox_pipeline.h"
-#include "lightBox_model.h"
+#include "lightBox_pipeline.hpp"
+#include "lightBox_model.hpp"
 
 #include <fstream>
 #include <stdexcept>

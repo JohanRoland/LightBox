@@ -1,5 +1,5 @@
 #pragma once
-#include "lightBox_model.h"
+#include "lightBox_model.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
 

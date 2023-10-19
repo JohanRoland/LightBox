@@ -1,6 +1,6 @@
 #pragma once
 
-#include "lightBox_window.h"
+#include "lightBox_window.hpp"
 #include "lightBox_device.hpp"
 #include "lightBox_swap_chain.hpp"
 #include "lightBox_game_object.hpp"

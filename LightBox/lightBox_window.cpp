@@ -1,4 +1,4 @@
-#include "lightBox_window.h"
+#include "lightBox_window.hpp"
 
 #include <iostream>
 #include <stdexcept>

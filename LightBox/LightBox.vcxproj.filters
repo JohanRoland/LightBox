@@ -16,6 +16,9 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{36936200-11ef-4c6e-89eb-4962ccfa9a85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="libs">
+      <UniqueIdentifier>{6b01d8f9-e11b-4586-bda3-188bf459ad49}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -59,7 +62,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="lightBox_window.h">
+    <ClInclude Include="lightBox_window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="first_app.hpp">
@@ -68,7 +71,7 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lightBox_pipeline.h">
+    <ClInclude Include="lightBox_pipeline.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lightBox_device.hpp">
@@ -77,7 +80,7 @@
     <ClInclude Include="lightBox_swap_chain.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="lightBox_model.h">
+    <ClInclude Include="lightBox_model.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lightBox_game_object.hpp">
@@ -87,6 +90,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="keyboard_movement_controller.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lightBox_utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

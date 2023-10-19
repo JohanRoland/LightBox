@@ -1,6 +1,6 @@
 #pragma once
 
-#include "lightBox_window.h"
+#include "lightBox_window.hpp"
 
 #include <glm/glm.hpp>
 #include <SDL2/SDL.h>

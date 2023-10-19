@@ -1,7 +1,7 @@
 #pragma once
 
 #include "lightBox_game_object.hpp"
-#include "lightBox_window.h"
+#include "lightBox_window.hpp"
 #include "lightBox_game_object.hpp"
 
 namespace lightBox {
