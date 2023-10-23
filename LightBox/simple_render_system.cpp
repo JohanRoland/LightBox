@@ -10,7 +10,7 @@ namespace lightBox {
 	struct SimplePushConstantData {
 	public:
 		glm::mat4 transform{ 1.f };
-		alignas(16) glm::vec3 color{};
+		glm::mat4 normalMatix{ 1.0f };
 	};
 
 	SimpleRenderSystem::SimpleRenderSystem(LightBoxDevice& device, VkRenderPass renderPass) : lightBoxDevice{ device }
@@ -68,27 +68,30 @@ namespace lightBox {
 	}
 
 
-	void SimpleRenderSystem::renderGameObjects(VkCommandBuffer commandBuffer, std::vector<LightBoxGameObject>& gameObjects, const LightBoxCamera& camera)
+	void SimpleRenderSystem::renderGameObjects(
+		FrameInfo &frameInfo,
+		std::vector<LightBoxGameObject>& gameObjects)
 	{
-		lightBoxPipeline->bind(commandBuffer);
+		lightBoxPipeline->bind(frameInfo.commandBuffer);
 
 
-		auto projectionView = camera.getProjection() * camera.getView();
+		auto projectionView = frameInfo.camera.getProjection() * frameInfo.camera.getView();
 
 		for (auto& object : gameObjects) {
+			auto modelMatix = object.transform.mat4();
 			SimplePushConstantData push{
-				.transform{projectionView * object.transform.mat4()},
-				.color{object.color} };
+				.transform{projectionView * modelMatix},
+				.normalMatix{object.transform.normalMatrix()}};
 
 			vkCmdPushConstants(
-				commandBuffer,
+				frameInfo.commandBuffer,
 				pipelineLayout,
 				VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT,
 				0,
 				sizeof(SimplePushConstantData),
 				&push);
-			object.model->bind(commandBuffer);
-			object.model->draw(commandBuffer);
+			object.model->bind(frameInfo.commandBuffer);
+			object.model->draw(frameInfo.commandBuffer);
 		}
 	}
 

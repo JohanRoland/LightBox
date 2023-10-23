@@ -5,6 +5,7 @@
 #include "lightBox_device.hpp"
 #include "lightBox_swap_chain.hpp"
 #include "lightBox_game_object.hpp"
+#include "ligthBox_frame_info.hpp"
 
 
 #include <memory>
@@ -18,7 +19,9 @@ namespace lightBox {
 
 		SimpleRenderSystem(const SimpleRenderSystem&) = delete;
 		SimpleRenderSystem operator=(const SimpleRenderSystem&) = delete;
-		void renderGameObjects(VkCommandBuffer commandBuffer, std::vector<LightBoxGameObject> &gameObjects, const LightBoxCamera& camera);
+		void renderGameObjects(
+			FrameInfo &frameInfo,
+			std::vector<LightBoxGameObject> &gameObjects);
 
 	private:
 		void createPipelineLayout();

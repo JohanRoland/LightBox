@@ -1,6 +1,7 @@
 #include "first_app.hpp"
 
 #include "lightBox_camera.hpp"
+#include "lightBox_buffer.hpp"
 #include "simple_render_system.hpp"
 #include "keyboard_movement_controller.hpp"
 
@@ -17,6 +18,11 @@
 
 namespace lightBox {
 
+	struct GlobalUbo {
+		glm::mat4 projectionViewMatrix{ 1.0f };
+		glm::vec3 lightDirection = glm::normalize(glm::vec3{ 1.0f, -3.0f, -1.0f });
+	};
+
 	FirstApp::FirstApp()
 	{
 		loadGameObjects();
@@ -24,6 +30,16 @@ namespace lightBox {
 	FirstApp::~FirstApp() {}
 	void lightBox::FirstApp::run()
 	{
+		std::vector<std::unique_ptr<LightBoxBuffer>> uboBuffers(LightBoxSwapChain::MAX_FRAMES_IN_FLIGHT);
+		for (int i = 0; i < uboBuffers.size(); i++) {
+			uboBuffers[i] = std::make_unique< LightBoxBuffer>(lightBoxDevice,
+				sizeof(GlobalUbo),
+				1,
+				VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+				VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT); // | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
+			uboBuffers[i]->map();
+		}
+
 		SimpleRenderSystem simpleRenderSystem{ lightBoxDevice, lightBoxRenderer.getSwapChainRenderPass() };
 		LightBoxCamera camera{};
 
@@ -70,8 +86,24 @@ namespace lightBox {
 					priviusTick = currentTick;
 					auto commandBuffer = lightBoxRenderer.beginFrame();
 					if (commandBuffer != nullptr) {
+						int frameIndex = lightBoxRenderer.getFrameIndex();
+						FrameInfo frameInfo{
+							frameIndex,
+							frameTime,
+							commandBuffer,
+							camera
+						};
+
+						// setup buffers
+						GlobalUbo ubo{};
+						ubo.projectionViewMatrix = camera.getProjection() * camera.getView();
+						uboBuffers[frameIndex]->writeToBuffer(&ubo);
+						uboBuffers[frameIndex]->flush();
+
+
+						// render 
 						lightBoxRenderer.beginSwapChainRenderPass(commandBuffer);
-						simpleRenderSystem.renderGameObjects(commandBuffer, gameObjects, camera);
+						simpleRenderSystem.renderGameObjects(frameInfo, gameObjects);
 						lightBoxRenderer.endSwapChainRenderPass(commandBuffer);
 						lightBoxRenderer.endFrame();
 					}
@@ -89,8 +121,16 @@ namespace lightBox {
 
 		auto gameObject = LightBoxGameObject::createGameObject();
 		gameObject.model = lightBoxModel;
-		gameObject.transform.translation = { 0.0f, 0.0f, 2.5f };
+		gameObject.transform.translation = { 0.25f, 0.0f, 2.5f };
 		gameObject.transform.scale = { 0.5f, 0.5f, 0.5f };
 		gameObjects.push_back(std::move(gameObject));
+
+		std::shared_ptr<LightBoxModel> lightBoxModel2 = LightBoxModel::createModelFromFile(lightBoxDevice, "models/flat_vase.obj");
+
+		auto gameObject2 = LightBoxGameObject::createGameObject();
+		gameObject2.model = lightBoxModel2;
+		gameObject2.transform.translation = { 0.5f, 0.0f, 2.5f };
+		gameObject2.transform.scale = { 0.5f, 0.25f, 0.5f };
+		gameObjects.push_back(std::move(gameObject2));
 	}
 }
