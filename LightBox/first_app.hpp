@@ -5,6 +5,7 @@
 #include "lightBox_swap_chain.hpp"
 #include "lightBox_game_object.hpp"
 #include "lightBox_renderer.hpp"
+#include "lightBox_descriptors.hpp"
 
 #include <memory>
 #include <vector>
@@ -27,9 +28,10 @@ namespace lightBox {
 		void loadGameObjects();
 
 		LightBoxWindow lightBoxWindow{ WIDTH, HEIGHT, "Hello, first app" };
-		LightBoxDevice lightBoxDevice{ lightBoxWindow,  };
+		LightBoxDevice lightBoxDevice{ lightBoxWindow};
 		LightBoxRenderer lightBoxRenderer{ lightBoxWindow, lightBoxDevice };
 
+		std::unique_ptr<LightBoxDescriptorPool> globalPool{};
 		std::vector<LightBoxGameObject> gameObjects;
 
 	};

@@ -9,13 +9,13 @@
 namespace lightBox {
 	struct SimplePushConstantData {
 	public:
-		glm::mat4 transform{ 1.f };
+		glm::mat4 modelMatrix{ 1.f };
 		glm::mat4 normalMatix{ 1.0f };
 	};
 
-	SimpleRenderSystem::SimpleRenderSystem(LightBoxDevice& device, VkRenderPass renderPass) : lightBoxDevice{ device }
+	SimpleRenderSystem::SimpleRenderSystem(LightBoxDevice& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout) : lightBoxDevice{ device }
 	{
-		createPipelineLayout();
+		createPipelineLayout(globalSetLayout);
 		createPipeline(renderPass);
 
 	}
@@ -26,7 +26,7 @@ namespace lightBox {
 	}
 
 
-	void SimpleRenderSystem::createPipelineLayout()
+	void SimpleRenderSystem::createPipelineLayout(VkDescriptorSetLayout globalSetLayout)
 	{
 
 		VkPushConstantRange pushConstantRange{};
@@ -34,10 +34,12 @@ namespace lightBox {
 		pushConstantRange.offset = 0;
 		pushConstantRange.size = sizeof(SimplePushConstantData);
 
+		std::vector<VkDescriptorSetLayout> descriptorSetLayout{ globalSetLayout };
+
 		VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
 		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-		pipelineLayoutInfo.setLayoutCount = 0;
-		pipelineLayoutInfo.pSetLayouts = nullptr;
+		pipelineLayoutInfo.setLayoutCount = static_cast<uint32_t>(descriptorSetLayout.size());
+		pipelineLayoutInfo.pSetLayouts = descriptorSetLayout.data();
 		pipelineLayoutInfo.pushConstantRangeCount = 1;
 		pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange;
 		pipelineLayoutInfo.pNext = nullptr;
@@ -73,14 +75,23 @@ namespace lightBox {
 		std::vector<LightBoxGameObject>& gameObjects)
 	{
 		lightBoxPipeline->bind(frameInfo.commandBuffer);
-
-
-		auto projectionView = frameInfo.camera.getProjection() * frameInfo.camera.getView();
+		const uint32_t uintFirstSetIndex = 0;
+		const uint32_t descriptorSetCount = 1;
+		const uint32_t dynamicOffsetCount = 0;
+		const uint32_t *dynamicOffsetPointer = nullptr;
+		vkCmdBindDescriptorSets(
+			frameInfo.commandBuffer,
+			VK_PIPELINE_BIND_POINT_GRAPHICS,
+			pipelineLayout,
+			uintFirstSetIndex,
+			descriptorSetCount,
+			&frameInfo.globalDescriptorSet,
+			dynamicOffsetCount,
+			dynamicOffsetPointer);
 
 		for (auto& object : gameObjects) {
-			auto modelMatix = object.transform.mat4();
 			SimplePushConstantData push{
-				.transform{projectionView * modelMatix},
+				.modelMatrix{object.transform.mat4()},
 				.normalMatix{object.transform.normalMatrix()}};
 
 			vkCmdPushConstants(

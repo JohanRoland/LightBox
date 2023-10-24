@@ -25,6 +25,10 @@ namespace lightBox {
 
 	FirstApp::FirstApp()
 	{
+		globalPool = LightBoxDescriptorPool::Builder(lightBoxDevice)
+			.setMaxSets(LightBoxSwapChain::MAX_FRAMES_IN_FLIGHT)
+			.addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, LightBoxSwapChain::MAX_FRAMES_IN_FLIGHT)
+			.build();
 		loadGameObjects();
 	}
 	FirstApp::~FirstApp() {}
@@ -39,8 +43,20 @@ namespace lightBox {
 				VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT); // | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
 			uboBuffers[i]->map();
 		}
+		auto gSL =  LightBoxDescriptorSetLayout::Builder(lightBoxDevice);
+		auto gSLA = gSL.addBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
+		auto globalSetLayout = gSLA.build();
 
-		SimpleRenderSystem simpleRenderSystem{ lightBoxDevice, lightBoxRenderer.getSwapChainRenderPass() };
+		std::vector<VkDescriptorSet> globalDescriptorSets(LightBoxSwapChain::MAX_FRAMES_IN_FLIGHT);
+
+		for (int i = 0; i < globalDescriptorSets.size(); i++) {
+			auto bufferInfo = uboBuffers[i]->descriptorInfo();
+			LightBoxDescriptorWriter(*globalSetLayout, *globalPool)
+				.writeBuffer(0, &bufferInfo)
+				.build(globalDescriptorSets[i]);
+		}
+
+		SimpleRenderSystem simpleRenderSystem{ lightBoxDevice, lightBoxRenderer.getSwapChainRenderPass(), globalSetLayout->getDescriptorSetLayout()};
 		LightBoxCamera camera{};
 
 		auto viewerObject = LightBoxGameObject::createGameObject();
@@ -91,7 +107,8 @@ namespace lightBox {
 							frameIndex,
 							frameTime,
 							commandBuffer,
-							camera
+							camera,
+							globalDescriptorSets[frameIndex]
 						};
 
 						// setup buffers

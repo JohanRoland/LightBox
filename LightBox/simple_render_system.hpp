@@ -14,7 +14,7 @@
 namespace lightBox {
 	class SimpleRenderSystem {
 	public:
-		SimpleRenderSystem(LightBoxDevice &device, VkRenderPass renderPass);
+		SimpleRenderSystem(LightBoxDevice &device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout);
 		~SimpleRenderSystem();
 
 		SimpleRenderSystem(const SimpleRenderSystem&) = delete;
@@ -24,7 +24,7 @@ namespace lightBox {
 			std::vector<LightBoxGameObject> &gameObjects);
 
 	private:
-		void createPipelineLayout();
+		void createPipelineLayout(VkDescriptorSetLayout globalSetLayout);
 		void createPipeline(VkRenderPass renderPass);
 
 

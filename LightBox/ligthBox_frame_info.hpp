@@ -13,6 +13,6 @@ namespace lightBox {
 		float frameTime;
 		VkCommandBuffer commandBuffer;
 		LightBoxCamera &camera;
-
+		VkDescriptorSet globalDescriptorSet;
 	};
 }
