@@ -70,9 +70,7 @@ namespace lightBox {
 	}
 
 
-	void SimpleRenderSystem::renderGameObjects(
-		FrameInfo &frameInfo,
-		std::vector<LightBoxGameObject>& gameObjects)
+	void SimpleRenderSystem::renderGameObjects(FrameInfo &frameInfo)
 	{
 		lightBoxPipeline->bind(frameInfo.commandBuffer);
 		const uint32_t uintFirstSetIndex = 0;
@@ -89,7 +87,13 @@ namespace lightBox {
 			dynamicOffsetCount,
 			dynamicOffsetPointer);
 
-		for (auto& object : gameObjects) {
+		for (auto& gameObjectEntry : frameInfo.gameObjects) {
+			auto& object = gameObjectEntry.second;
+
+			if (object.model == nullptr) {
+				continue;
+			}
+
 			SimplePushConstantData push{
 				.modelMatrix{object.transform.mat4()},
 				.normalMatix{object.transform.normalMatrix()}};

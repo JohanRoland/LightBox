@@ -14,5 +14,6 @@ namespace lightBox {
 		VkCommandBuffer commandBuffer;
 		LightBoxCamera &camera;
 		VkDescriptorSet globalDescriptorSet;
+		LightBoxGameObject::GameObjectMap& gameObjects;
 	};
 }

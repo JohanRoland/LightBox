@@ -17,14 +17,22 @@
 
 
 namespace lightBox {
-
+	/*****
+	* The last component of the light vectors control light intensity.
+	* 
+	*/
 	struct GlobalUbo {
-		glm::mat4 projectionViewMatrix{ 1.0f };
-		glm::vec3 lightDirection = glm::normalize(glm::vec3{ 1.0f, -3.0f, -1.0f });
+		
+		glm::mat4 projectionMatrix{ 1.0f };
+		glm::mat4 viewMatrix{ 1.0f };
+		glm::vec4 ambientLightColor{ 1.0f, 1.0f, 1.0f, 0.02f };
+		glm::vec3 lightPosition{ -1.0f };
+		alignas(16) glm::vec4 lightColor{ 1.0f };
 	};
 
 	FirstApp::FirstApp()
 	{
+		gameObjects = LightBoxGameObject::GameObjectMap();
 		globalPool = LightBoxDescriptorPool::Builder(lightBoxDevice)
 			.setMaxSets(LightBoxSwapChain::MAX_FRAMES_IN_FLIGHT)
 			.addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, LightBoxSwapChain::MAX_FRAMES_IN_FLIGHT)
@@ -43,9 +51,11 @@ namespace lightBox {
 				VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT); // | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT
 			uboBuffers[i]->map();
 		}
-		auto gSL =  LightBoxDescriptorSetLayout::Builder(lightBoxDevice);
-		auto gSLA = gSL.addBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT);
-		auto globalSetLayout = gSLA.build();
+
+		auto globalSetLayout = 
+			LightBoxDescriptorSetLayout::Builder(lightBoxDevice)
+			.addBinding(0, VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT)
+			.build();
 
 		std::vector<VkDescriptorSet> globalDescriptorSets(LightBoxSwapChain::MAX_FRAMES_IN_FLIGHT);
 
@@ -60,6 +70,7 @@ namespace lightBox {
 		LightBoxCamera camera{};
 
 		auto viewerObject = LightBoxGameObject::createGameObject();
+		viewerObject.transform.translation.z = -2.5f;
 		KeyboardMovementController cameraController{};
 
 		auto currentTime = std::chrono::high_resolution_clock::now();
@@ -108,19 +119,22 @@ namespace lightBox {
 							frameTime,
 							commandBuffer,
 							camera,
-							globalDescriptorSets[frameIndex]
+							globalDescriptorSets[frameIndex],
+							gameObjects
 						};
 
 						// setup buffers
 						GlobalUbo ubo{};
-						ubo.projectionViewMatrix = camera.getProjection() * camera.getView();
+						ubo.projectionMatrix = camera.getProjection();
+						ubo.viewMatrix =camera.getView();
+
 						uboBuffers[frameIndex]->writeToBuffer(&ubo);
 						uboBuffers[frameIndex]->flush();
 
 
 						// render 
 						lightBoxRenderer.beginSwapChainRenderPass(commandBuffer);
-						simpleRenderSystem.renderGameObjects(frameInfo, gameObjects);
+						simpleRenderSystem.renderGameObjects(frameInfo);
 						lightBoxRenderer.endSwapChainRenderPass(commandBuffer);
 						lightBoxRenderer.endFrame();
 					}
@@ -136,18 +150,24 @@ namespace lightBox {
 	{
 		std::shared_ptr<LightBoxModel> lightBoxModel = LightBoxModel::createModelFromFile(lightBoxDevice, "models/smooth_vase.obj");
 
-		auto gameObject = LightBoxGameObject::createGameObject();
-		gameObject.model = lightBoxModel;
-		gameObject.transform.translation = { 0.25f, 0.0f, 2.5f };
-		gameObject.transform.scale = { 0.5f, 0.5f, 0.5f };
-		gameObjects.push_back(std::move(gameObject));
+		auto gameObjectVaseSmooth = LightBoxGameObject::createGameObject();
+		gameObjectVaseSmooth.model = lightBoxModel;
+		gameObjectVaseSmooth.transform.translation = { -0.25f, 0.0f, 0.0f };
+		gameObjectVaseSmooth.transform.scale = { 0.5f, 0.5f, 0.5f };
+		gameObjects.emplace(gameObjectVaseSmooth.getId(), std::move(gameObjectVaseSmooth));
 
-		std::shared_ptr<LightBoxModel> lightBoxModel2 = LightBoxModel::createModelFromFile(lightBoxDevice, "models/flat_vase.obj");
+		lightBoxModel = LightBoxModel::createModelFromFile(lightBoxDevice, "models/flat_vase.obj");
+		auto gameObjectVaseFlat = LightBoxGameObject::createGameObject();
+		gameObjectVaseFlat.model = lightBoxModel;
+		gameObjectVaseFlat.transform.translation = { 0.5f, 0.0f, 0.0f };
+		gameObjectVaseFlat.transform.scale = { 0.5f, 0.25f, 0.5f };
+		gameObjects.emplace(gameObjectVaseFlat.getId(), std::move(gameObjectVaseFlat));
 
-		auto gameObject2 = LightBoxGameObject::createGameObject();
-		gameObject2.model = lightBoxModel2;
-		gameObject2.transform.translation = { 0.5f, 0.0f, 2.5f };
-		gameObject2.transform.scale = { 0.5f, 0.25f, 0.5f };
-		gameObjects.push_back(std::move(gameObject2));
+		lightBoxModel = LightBoxModel::createModelFromFile(lightBoxDevice, "models/quad.obj");
+		auto gameObjecPlane = LightBoxGameObject::createGameObject();
+		gameObjecPlane.model = lightBoxModel;
+		gameObjecPlane.transform.translation = { 0.0f, 0.0f, 0.0f };
+		gameObjecPlane.transform.scale = { 4.0f, 1.0f, 3.0f };
+		gameObjects.emplace(gameObjecPlane.getId(), std::move(gameObjecPlane));
 	}
 }

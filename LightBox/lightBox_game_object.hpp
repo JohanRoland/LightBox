@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include <memory>
+#include <unordered_map>
 
 namespace lightBox {
 
@@ -23,6 +24,7 @@ namespace lightBox {
 	class LightBoxGameObject {
 	public:
 		using id_t = unsigned int;
+		using GameObjectMap = std::unordered_map<id_t, LightBoxGameObject>;
 
 		static LightBoxGameObject createGameObject() {
 			static id_t currentId = 0;

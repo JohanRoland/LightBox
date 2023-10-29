@@ -32,7 +32,7 @@ namespace lightBox {
 		LightBoxRenderer lightBoxRenderer{ lightBoxWindow, lightBoxDevice };
 
 		std::unique_ptr<LightBoxDescriptorPool> globalPool{};
-		std::vector<LightBoxGameObject> gameObjects;
+		LightBoxGameObject::GameObjectMap gameObjects;
 
 	};
 }
