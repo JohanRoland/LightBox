@@ -10,6 +10,7 @@
 #include <memory>
 #include <vector>
 
+
 namespace lightBox {
 	class FirstApp {
 	public:

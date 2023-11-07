@@ -7,10 +7,10 @@
 
 #define CLASS_WINDOW "classWindow"
 
-//#include <glm/glm.hpp>
-//#include <SDL2/SDL.h>
-//#include <SDL2/SDL_syswm.h>
-//#include <SDL2/SDL_vulkan.h>
+#include <glm/glm.hpp>
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_syswm.h>
+#include <SDL2/SDL_vulkan.h>
 #include <vulkan/vulkan.hpp>
 namespace lightBox {
 
@@ -52,7 +52,6 @@ namespace lightBox {
 	}
 	*/
 	 int LightBoxWindow::resizingEventWatcher(void* data, SDL_Event* event) {
-		std::cout << "Hello \n";
 		if (SDL_WINDOWEVENT  == event->type &&
 			SDL_WINDOWEVENT_RESIZED == event->window.event) {
 			SDL_Window* win = SDL_GetWindowFromID(event->window.windowID);

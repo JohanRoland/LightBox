@@ -5,6 +5,7 @@
 #include <iostream>
 #include <set>
 #include <unordered_set>
+#include <tchar.h>
 
 
 namespace lightBox {
@@ -17,13 +18,13 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallback(
     void *pUserData) {
 	if (nullptr == pCallbackData->pMessage)
 	{
-		OutputDebugString(L"Validation layer message: null message\n");
+		OutputDebugString(_T("Validation layer message: null message\n"));
 		return VK_FALSE;
 		//throw std::runtime_error("validation layer debug message is nullptr");
 	}
-	OutputDebugString(L"Validation layer message: ");
+	OutputDebugString("Validation layer message: ");
 	OutputDebugStringA(pCallbackData->pMessage);
-	OutputDebugString(L"\n");
+	OutputDebugString("\n");
   return VK_FALSE;
 }
 

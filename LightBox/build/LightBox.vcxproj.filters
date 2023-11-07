@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\first_app.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\keyboard_movement_controller.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\lightBox_buffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\lightBox_camera.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\lightBox_descriptors.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\lightBox_device.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\lightBox_game_object.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\lightBox_model.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\lightBox_pipeline.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\lightBox_renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\lightBox_swap_chain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\lightBox_window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\simple_render_system.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{9AB6DA75-C424-3504-87E9-C27B75C5D690}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

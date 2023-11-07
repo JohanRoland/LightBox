@@ -1,0 +1,25 @@
+# CMake generation dependency list for this directory.
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/CMakeCInformation.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/CMakeCXXInformation.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/CMakeCommonLanguageInclude.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/CMakeGenericSystem.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/CMakeInitializeConfigs.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/CMakeLanguageInformation.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/CMakeRCInformation.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/CMakeSystemSpecificInformation.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/CMakeSystemSpecificInitialize.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/Compiler/CMakeCommonCompilerMacros.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/Compiler/MSVC-C.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/Compiler/MSVC-CXX.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/Compiler/MSVC.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/Platform/Windows-MSVC-C.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/Platform/Windows-MSVC-CXX.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/Platform/Windows-MSVC.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/Platform/Windows.cmake
+D:/install/VSStudio/Common7/IDE/CommonExtensions/Microsoft/CMake/CMake/share/cmake-3.25/Modules/Platform/WindowsPaths.cmake
+E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/.env.cmake
+E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/CMakeLists.txt
+E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/build/CMakeFiles/3.25.1-msvc1/CMakeCCompiler.cmake
+E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/build/CMakeFiles/3.25.1-msvc1/CMakeCXXCompiler.cmake
+E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/build/CMakeFiles/3.25.1-msvc1/CMakeRCCompiler.cmake
+E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/build/CMakeFiles/3.25.1-msvc1/CMakeSystem.cmake

@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\d7cc57c7aa887a0d9565ac2b91c3b25c\simple_shader.frag.spv.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\d7cc57c7aa887a0d9565ac2b91c3b25c\simple_shader.vert.spv.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\b02d9d879dd77b867c6a8161f12b091f\shaders.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\shaders" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{5DA18C43-51CD-3D8C-8180-27D337126A54}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

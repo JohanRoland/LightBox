@@ -35,7 +35,7 @@ namespace lightBox {
 
 	std::unique_ptr<LightBoxModel> LightBoxModel::createModelFromFile(LightBoxDevice& device, const std::string& filePath) {
 		Builder builder{};
-		builder.loadModel(filePath);
+		builder.loadModel("../" + filePath);
 		return std::make_unique<LightBoxModel>(device, builder);
 	}
 

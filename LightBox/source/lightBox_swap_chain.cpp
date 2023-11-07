@@ -8,6 +8,7 @@
 #include <limits>
 #include <set>
 #include <stdexcept>
+#include <tchar.h>
 
 namespace lightBox {
 
@@ -390,7 +391,7 @@ VkPresentModeKHR LightBoxSwapChain::chooseSwapPresentMode(
     const std::vector<VkPresentModeKHR> &availablePresentModes) {
   for (const auto &availablePresentMode : availablePresentModes) {
     if (availablePresentMode == VK_PRESENT_MODE_MAILBOX_KHR) {
-	  OutputDebugString(L"Present mode: Mailbox\n");
+	  OutputDebugString(_T("Present mode: Mailbox\n"));
       std::cout << "Present mode: Mailbox" << std::endl;
       return availablePresentMode;
     }
@@ -402,7 +403,7 @@ VkPresentModeKHR LightBoxSwapChain::chooseSwapPresentMode(
   //     return availablePresentMode;
   //   }
   // }
-  OutputDebugString(L"Present mode: V-Sync\n");
+  OutputDebugString("Present mode: V-Sync\n");
   std::cout << "Present mode: V-Sync" << std::endl;
   return VK_PRESENT_MODE_FIFO_KHR;
 }
