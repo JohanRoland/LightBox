@@ -6,9 +6,15 @@
 #include "lightBox_game_object.hpp"
 #include "lightBox_renderer.hpp"
 #include "lightBox_descriptors.hpp"
+#include "lightBox_camera.hpp"
+#include "keyboard_movement_controller.hpp"
+#include "lightBox_texture.hpp"
+
+
 
 #include <memory>
 #include <vector>
+#include <filesystem>
 
 
 namespace lightBox {
@@ -19,6 +25,12 @@ namespace lightBox {
 
 		FirstApp();
 		~FirstApp();
+		LightBoxCamera camera;
+		KeyboardMovementController cameraController = {};
+		LightBoxGameObject viewerObject = LightBoxGameObject::createGameObject();
+
+
+
 
 		FirstApp(const FirstApp &) = delete;
 		FirstApp operator=(const FirstApp &) = delete;
@@ -26,7 +38,11 @@ namespace lightBox {
 		void run();
 
 	private:
+
+		bool loadSceen(std::filesystem::path path);
 		void loadGameObjects();
+		void loadTextures();
+		void mapTextures();
 
 		LightBoxWindow lightBoxWindow{ WIDTH, HEIGHT, "Hello, first app" };
 		LightBoxDevice lightBoxDevice{ lightBoxWindow};
@@ -34,6 +50,7 @@ namespace lightBox {
 
 		std::unique_ptr<LightBoxDescriptorPool> globalPool{};
 		LightBoxGameObject::GameObjectMap gameObjects;
+		std::vector<vKImage::Texture> textures;
 
 	};
 }

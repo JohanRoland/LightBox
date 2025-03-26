@@ -89,14 +89,17 @@ namespace lightBox {
 		configInfo.dynamicStateCreateInfo.pDynamicStates = configInfo.dynamicStateEnables.data();
 		configInfo.dynamicStateCreateInfo.dynamicStateCount = static_cast<int32_t>(configInfo.dynamicStateEnables.size());
 		configInfo.dynamicStateCreateInfo.flags = 0;
+
+		configInfo.attributeDescriptions = LightBoxModel::Vertex::getAttributeDescriptions();
+		configInfo.bindingDescriptions = LightBoxModel::Vertex::getBindingDescriptions();
 	}
 
 	std::vector<char> lightBox::LightBoxPipeline::readFile(const std::string & filepath)
 	{
-		std::string pathFromTopLevel = "../" + filepath;
-		std::ifstream file{ pathFromTopLevel, std::ios::ate | std::ios::binary };
+		//std::string pathFromTopLevel = "../" + filepath;
+		std::ifstream file{ filepath, std::ios::ate | std::ios::binary };
 		if (!file.is_open()) {
-			throw std::runtime_error("Failed to open file: " + pathFromTopLevel);
+			throw std::runtime_error("Failed to open file: " + filepath);
 		}
 
 		size_t fileSize = static_cast<size_t>(file.tellg());
@@ -143,8 +146,8 @@ namespace lightBox {
 		shaderStages[1].pNext = nullptr;
 		shaderStages[1].pSpecializationInfo = nullptr;
 
-		auto bindingDescriptions = LightBoxModel::Vertex::getBindingDescriptions();
-		auto attributeDescriptions = LightBoxModel::Vertex::getAttributeDescriptions();
+		auto& bindingDescriptions = configInfo.bindingDescriptions;
+		auto& attributeDescriptions = configInfo.attributeDescriptions;
 
 		VkPipelineVertexInputStateCreateInfo vertexInputInfo{};
 		vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;

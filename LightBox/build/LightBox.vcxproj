@@ -90,7 +90,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\header;E:\install\VulkanSDK\Include;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules\tinyobjloader;E:\install\VulkanSDK\Include\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\TextureLoaders;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\header\TextureLoaders;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules\tinyobjloader;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules\stb;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules\cgltf;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\header;E:\install\VulkanSDK\Include;E:\install\VulkanSDK\Include\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
@@ -134,7 +134,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\header;E:\install\VulkanSDK\Include;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules\tinyobjloader;E:\install\VulkanSDK\Include\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\TextureLoaders;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\header\TextureLoaders;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules\tinyobjloader;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules\stb;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules\cgltf;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\header;E:\install\VulkanSDK\Include;E:\install\VulkanSDK\Include\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
@@ -178,7 +178,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\header;E:\install\VulkanSDK\Include;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules\tinyobjloader;E:\install\VulkanSDK\Include\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\TextureLoaders;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\header\TextureLoaders;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules\tinyobjloader;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules\stb;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules\cgltf;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\header;E:\install\VulkanSDK\Include;E:\install\VulkanSDK\Include\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <ExceptionHandling>Sync</ExceptionHandling>
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
@@ -222,7 +222,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\header;E:\install\VulkanSDK\Include;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules\tinyobjloader;E:\install\VulkanSDK\Include\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\TextureLoaders;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\header\TextureLoaders;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules\tinyobjloader;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules\stb;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules\cgltf;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\submodules;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\header;E:\install\VulkanSDK\Include;E:\install\VulkanSDK\Include\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ExceptionHandling>Sync</ExceptionHandling>
@@ -321,6 +321,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\source\ddsLoaderImplementation.cpp" />
+    <ClCompile Include="..\source\imageLoader.cpp" />
+    <ClCompile Include="..\source\lightBox_texture.cpp" />
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\external.cpp" />
     <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\first_app.cpp" />
     <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\keyboard_movement_controller.cpp" />
     <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\lightBox_buffer.cpp" />
@@ -334,7 +338,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\lightBox_swap_chain.cpp" />
     <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\lightBox_window.cpp" />
     <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\main.cpp" />
-    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\simple_render_system.cpp" />
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\renderSystems\point_light_system.cpp" />
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\renderSystems\simple_render_system.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\ZERO_CHECK.vcxproj">
@@ -343,6 +348,29 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\header\ddsLoaderImplementation.hpp" />
+    <ClInclude Include="..\header\first_app.hpp" />
+    <ClInclude Include="..\header\imageLoader.hpp" />
+    <ClInclude Include="..\header\keyboard_movement_controller.hpp" />
+    <ClInclude Include="..\header\lightBox_buffer.hpp" />
+    <ClInclude Include="..\header\lightBox_camera.hpp" />
+    <ClInclude Include="..\header\lightBox_descriptors.hpp" />
+    <ClInclude Include="..\header\lightBox_device.hpp" />
+    <ClInclude Include="..\header\lightBox_game_object.hpp" />
+    <ClInclude Include="..\header\lightBox_model.hpp" />
+    <ClInclude Include="..\header\lightBox_pipeline.hpp" />
+    <ClInclude Include="..\header\lightBox_renderer.hpp" />
+    <ClInclude Include="..\header\lightBox_swap_chain.hpp" />
+    <ClInclude Include="..\header\lightBox_texture.hpp" />
+    <ClInclude Include="..\header\lightBox_utils.hpp" />
+    <ClInclude Include="..\header\lightBox_window.hpp" />
+    <ClInclude Include="..\header\ligthBox_frame_info.hpp" />
+    <ClInclude Include="..\header\resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

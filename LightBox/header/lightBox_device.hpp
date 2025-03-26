@@ -47,6 +47,7 @@ class LightBoxDevice {
 
   VkCommandPool getCommandPool() { return commandPool; }
   VkDevice device() { return device_; }
+  VkPhysicalDevice getPhysicalDevice() { return physicalDevice; }
   VkSurfaceKHR surface() { return surface_; }
   VkQueue graphicsQueue() { return graphicsQueue_; }
   VkQueue presentQueue() { return presentQueue_; }
@@ -77,7 +78,7 @@ class LightBoxDevice {
       VkDeviceMemory &imageMemory);
 
   VkPhysicalDeviceProperties properties;
-
+  VkDevice device_; // temporarily public
  private:
   void createInstance();
   void setupDebugMessenger();
@@ -102,7 +103,7 @@ class LightBoxDevice {
   LightBoxWindow &lightBoxWindow;
   VkCommandPool commandPool;
 
-  VkDevice device_;
+//  VkDevice device_;
   VkSurfaceKHR surface_;
   VkQueue graphicsQueue_;
   VkQueue presentQueue_;

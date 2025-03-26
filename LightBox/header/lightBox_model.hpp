@@ -16,9 +16,10 @@ namespace lightBox {
 	public:
 		struct Vertex {
 			glm::vec3 position{};
-			glm::vec3 color{};
+			glm::vec3 color{255.0f,124.0f ,124.0f };
 			glm::vec3 normal{};
-			glm::vec2 uv{};
+			bool hasTexture = false;
+			glm::vec2 uv{}; // textureCoords 
 
 			static std::vector<VkVertexInputBindingDescription> getBindingDescriptions();
 			static std::vector<VkVertexInputAttributeDescription> getAttributeDescriptions();

@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <CustomBuild Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\d7cc57c7aa887a0d9565ac2b91c3b25c\point_light.frag.spv.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\d7cc57c7aa887a0d9565ac2b91c3b25c\point_light.vert.spv.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
     <CustomBuild Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\d7cc57c7aa887a0d9565ac2b91c3b25c\simple_shader.frag.spv.rule">
       <Filter>CMake Rules</Filter>
     </CustomBuild>
@@ -14,10 +20,25 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\shaders" />
+    <None Include="..\shaders\point_light.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\point_light.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\simple_shader.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="..\shaders\simple_shader.vert">
+      <Filter>Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CMake Rules">
       <UniqueIdentifier>{5DA18C43-51CD-3D8C-8180-27D337126A54}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{78455b64-335d-4825-839a-7a6195bac654}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -12,6 +12,8 @@ namespace lightBox {
 		PipelineConfigurationInfo(const PipelineConfigurationInfo&) = delete;
 		PipelineConfigurationInfo& operator=(const PipelineConfigurationInfo&) = delete;
 
+		std::vector<VkVertexInputBindingDescription> bindingDescriptions{};
+		std::vector<VkVertexInputAttributeDescription> attributeDescriptions{};
 		VkPipelineViewportStateCreateInfo viewportInfo;
 		VkPipelineInputAssemblyStateCreateInfo inputAssemblyInfo;
 		VkPipelineRasterizationStateCreateInfo rasterizationInfo;

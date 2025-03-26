@@ -1,4 +1,4 @@
-#include "simple_render_system.hpp"
+#include "renderSystems/simple_render_system.hpp"
 
 #include <stdexcept>
 #define GLM_FORCE_RADIANS
@@ -11,6 +11,7 @@ namespace lightBox {
 	public:
 		glm::mat4 modelMatrix{ 1.f };
 		glm::mat4 normalMatix{ 1.0f };
+		glm::vec4 quaturnian{0.f};
 	};
 
 	SimpleRenderSystem::SimpleRenderSystem(LightBoxDevice& device, VkRenderPass renderPass, VkDescriptorSetLayout globalSetLayout) : lightBoxDevice{ device }
@@ -64,8 +65,12 @@ namespace lightBox {
 		pipelineConfig.pipelineLayout = pipelineLayout;
 		lightBoxPipeline = std::make_unique<LightBoxPipeline>(
 			lightBoxDevice,
+			/*
 			"Shaders/simple_shader.vert.spv",
 			"Shaders/simple_shader.frag.spv",
+			*/
+			"E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/simple_shader.vert.spv",
+			"E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/simple_shader.frag.spv",
 			pipelineConfig);
 	}
 
@@ -96,7 +101,12 @@ namespace lightBox {
 
 			SimplePushConstantData push{
 				.modelMatrix{object.transform.mat4()},
-				.normalMatix{object.transform.normalMatrix()}};
+				.normalMatix{object.transform.normalMatrix()},
+				.quaturnian{object.transform.quaternionRotation.w, 
+					object.transform.quaternionRotation.x,
+					object.transform.quaternionRotation.y,
+					object.transform.quaternionRotation.z}
+			};
 
 			vkCmdPushConstants(
 				frameInfo.commandBuffer,

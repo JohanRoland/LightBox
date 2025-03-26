@@ -22,11 +22,12 @@ namespace lightBox {
 
         // ToDo: Make dependency injected base interface to abstract away SDL
         void moveInPlaneXZ(SDL_Keycode keyCode, float dt, LightBoxGameObject& gameObject);
+        void moveInPlaneXYZQuart(SDL_Keycode keyCode, float dt, LightBoxGameObject& gameObject);
 
         KeyMappings keys {};
 
-        float moveSpeed{ 1.0f };
-        float lookSpeed{ 0.5f };
+        float moveSpeed{ 10.0f };
+        float lookSpeed{ 1.0f };
 
     };
 }

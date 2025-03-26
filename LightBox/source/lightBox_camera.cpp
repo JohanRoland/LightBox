@@ -16,14 +16,30 @@ namespace lightBox {
 	}
 
 	void LightBoxCamera::setPerspectiveProjection(float fovy, float aspect, float near, float far) {
+		this->fovy = fovy;
+		aspectRatio = aspect;
+		nearPlane = near;
+		farPlane = far;
 		assert(glm::abs(aspect - std::numeric_limits<float>::epsilon()) > 0.0f);
 		const float tanHalfFovy = tan(fovy / 2.f);
 		projectionMatrix = glm::mat4{ 0.0f };
-		projectionMatrix[0][0] = 1.f / (aspect * tanHalfFovy);
+		projectionMatrix[0][0] = 1.f / (aspectRatio * tanHalfFovy);
 		projectionMatrix[1][1] = 1.f / (tanHalfFovy);
-		projectionMatrix[2][2] = far / (far - near);
+		projectionMatrix[2][2] = far / (far - nearPlane);
 		projectionMatrix[2][3] = 1.f;
-		projectionMatrix[3][2] = -(far * near) / (far - near);
+		projectionMatrix[3][2] = -(far * nearPlane) / (far - nearPlane);
+	}
+
+	void LightBoxCamera::updatePerspectivAspect(float aspect) {
+		aspectRatio = aspect;
+		assert(glm::abs(aspectRatio - std::numeric_limits<float>::epsilon()) > 0.0f);
+		const float tanHalfFovy = tan(fovy / 2.f);
+		projectionMatrix = glm::mat4{ 0.0f };
+		projectionMatrix[0][0] = 1.f / (aspectRatio * tanHalfFovy);
+		projectionMatrix[1][1] = 1.f / (tanHalfFovy);
+		projectionMatrix[2][2] = farPlane / (farPlane - nearPlane);
+		projectionMatrix[2][3] = 1.f;
+		projectionMatrix[3][2] = -(farPlane * nearPlane) / (farPlane - nearPlane);
 	}
 
 	void LightBoxCamera::setViewDirection(glm::vec3 position, glm::vec3 direction, glm::vec3 up) {

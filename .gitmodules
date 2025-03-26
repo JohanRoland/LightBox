@@ -1,3 +1,6 @@
 [submodule "LightBox/libs/tinyobjloader"]
 	path = LightBox/libs/tinyobjloader
 	url = https://github.com/tinyobjloader/tinyobjloader.git
+[submodule "LightBox/submodules/cgltf"]
+	path = LightBox/submodules/cgltf
+	url = https://github.com/jkuhlmann/cgltf.git

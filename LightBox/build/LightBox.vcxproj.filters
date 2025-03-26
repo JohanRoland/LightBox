@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\external.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\first_app.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -40,8 +43,20 @@
     <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\simple_render_system.cpp">
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\renderSystems\point_light_system.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\source\renderSystems\simple_render_system.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\ddsLoaderImplementation.cpp">
+      <Filter>Source Files\TextureLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\lightBox_texture.cpp">
+      <Filter>Source Files\TextureLoaders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\imageLoader.cpp">
+      <Filter>Source Files\TextureLoaders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,5 +66,73 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{9AB6DA75-C424-3504-87E9-C27B75C5D690}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{e3d06758-9dac-4861-9c4e-13873dbfcc86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\TextureLoaders">
+      <UniqueIdentifier>{00aefcef-5af1-4a3e-897a-d45f0985de60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\TextureLoaders">
+      <UniqueIdentifier>{ab52bb96-9bb0-4ce6-a736-a690a55ffca2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\header\first_app.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\keyboard_movement_controller.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\lightBox_buffer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\lightBox_camera.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\lightBox_descriptors.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\lightBox_device.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\lightBox_game_object.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\lightBox_model.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\lightBox_pipeline.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\lightBox_renderer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\lightBox_swap_chain.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\lightBox_utils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\lightBox_window.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\ligthBox_frame_info.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\ddsLoaderImplementation.hpp">
+      <Filter>Header Files\TextureLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\imageLoader.hpp">
+      <Filter>Header Files\TextureLoaders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\header\lightBox_texture.hpp">
+      <Filter>Header Files\TextureLoaders</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

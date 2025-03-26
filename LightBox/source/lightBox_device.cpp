@@ -427,6 +427,14 @@ void LightBoxDevice::createBuffer(
   allocInfo.allocationSize = memRequirements.size;
   allocInfo.memoryTypeIndex = findMemoryType(memRequirements.memoryTypeBits, properties);
 
+  VkMemoryAllocateFlagsInfo flagInfo = { VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_FLAGS_INFO };
+  if (usage & VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT)
+  {
+      allocInfo.pNext = &flagInfo;
+      flagInfo.flags = VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT;
+      flagInfo.deviceMask = 1;
+  }
+
   if (vkAllocateMemory(device_, &allocInfo, nullptr, &bufferMemory) != VK_SUCCESS) {
     throw std::runtime_error("failed to allocate vertex buffer memory!");
   }
@@ -448,7 +456,10 @@ VkCommandBuffer LightBoxDevice::beginSingleTimeCommands() {
   beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
   beginInfo.flags = VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT;
 
-  vkBeginCommandBuffer(commandBuffer, &beginInfo);
+   if (vkBeginCommandBuffer(commandBuffer, &beginInfo) != VK_SUCCESS) {
+      throw std::runtime_error("failed to begin recording command buffer!");
+  }
+
   return commandBuffer;
 }
 
@@ -460,8 +471,8 @@ void LightBoxDevice::endSingleTimeCommands(VkCommandBuffer commandBuffer) {
   submitInfo.commandBufferCount = 1;
   submitInfo.pCommandBuffers = &commandBuffer;
 
-  vkQueueSubmit(graphicsQueue_, 1, &submitInfo, VK_NULL_HANDLE);
-  vkQueueWaitIdle(graphicsQueue_);
+  if (!vkQueueSubmit(graphicsQueue_, 1, &submitInfo, VK_NULL_HANDLE)) {/*std::cout << "Failed to vkQueueSubmit";*/ };
+  if (!vkQueueWaitIdle(graphicsQueue_)) {/*std::cout << "Failed to vkQueueWaitIdle"; */ };;
 
   vkFreeCommandBuffers(device_, commandPool, 1, &commandBuffer);
 }

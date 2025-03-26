@@ -10,6 +10,7 @@
 #include "tiny_obj_loader.h"
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/hash.hpp>
+#include <cgltf/cgltf.h>
 
 namespace std {
 
@@ -29,15 +30,18 @@ namespace lightBox {
 	{
 		createVertexBuffers(builder.vertices);
 		createIndexBuffers(builder.indices);
+		// Map texture?
 	}
 
 	LightBoxModel::~LightBoxModel() {}
 
-	std::unique_ptr<LightBoxModel> LightBoxModel::createModelFromFile(LightBoxDevice& device, const std::string& filePath) {
+	std::unique_ptr<LightBoxModel> LightBoxModel::createModelFromFile(LightBoxDevice& device, const std::string& filePath)
+	{
 		Builder builder{};
 		builder.loadModel("../" + filePath);
 		return std::make_unique<LightBoxModel>(device, builder);
 	}
+
 
 	void LightBoxModel::bind(VkCommandBuffer commandBuffer)
 	{
@@ -146,9 +150,11 @@ namespace lightBox {
 		attributeDescriptions.push_back({ 1, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex, color) });
 		attributeDescriptions.push_back({ 2, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex, normal) });
 		attributeDescriptions.push_back({ 3, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex, uv) });
+		//attributeDescriptions.push_back({ 4, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex, textureCoord) });
 
 		return attributeDescriptions;
 	}
+
 	void lightBox::LightBoxModel::Builder::loadModel(const std::string& filePath)
 	{
 		tinyobj::attrib_t attrib;

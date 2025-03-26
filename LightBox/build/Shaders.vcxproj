@@ -105,6 +105,118 @@
     </Midl>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <CustomBuild Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\d7cc57c7aa887a0d9565ac2b91c3b25c\point_light.frag.spv.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.frag.spv</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+E:\install\VulkanSDK\Bin\glslangValidator.exe -V "E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.frag" -o "E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.frag.spv"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.frag;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.frag.spv</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.frag.spv</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+E:\install\VulkanSDK\Bin\glslangValidator.exe -V "E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.frag" -o "E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.frag.spv"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.frag;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.frag.spv</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.frag.spv</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+E:\install\VulkanSDK\Bin\glslangValidator.exe -V "E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.frag" -o "E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.frag.spv"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.frag;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.frag.spv</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.frag.spv</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+E:\install\VulkanSDK\Bin\glslangValidator.exe -V "E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.frag" -o "E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.frag.spv"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.frag;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.frag.spv</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\d7cc57c7aa887a0d9565ac2b91c3b25c\point_light.vert.spv.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.vert.spv</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+E:\install\VulkanSDK\Bin\glslangValidator.exe -V "E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.vert" -o "E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.vert.spv"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.vert;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.vert.spv</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generating E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.vert.spv</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+E:\install\VulkanSDK\Bin\glslangValidator.exe -V "E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.vert" -o "E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.vert.spv"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.vert;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.vert.spv</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generating E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.vert.spv</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+E:\install\VulkanSDK\Bin\glslangValidator.exe -V "E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.vert" -o "E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.vert.spv"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.vert;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.vert.spv</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generating E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.vert.spv</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+E:\install\VulkanSDK\Bin\glslangValidator.exe -V "E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.vert" -o "E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/point_light.vert.spv"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.vert;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.vert.spv</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
     <CustomBuild Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\d7cc57c7aa887a0d9565ac2b91c3b25c\simple_shader.frag.spv.rule">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generating E:/OldInstallFiles/Users/Johan Ekdahl/source/repos/LightBox/LightBox/shaders/simple_shader.frag.spv</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
@@ -218,7 +330,8 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\b02d9d879dd77b867c6a8161f12b091f\shaders.rule">
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'"></Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -226,11 +339,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\simple_shader.frag.spv;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\simple_shader.vert.spv;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.frag.spv;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.vert.spv;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\simple_shader.frag.spv;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\simple_shader.vert.spv;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\shaders</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</VerifyInputsAndOutputsExist>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'"></Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+      </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -238,11 +352,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\simple_shader.frag.spv;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\simple_shader.vert.spv;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.frag.spv;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.vert.spv;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\simple_shader.frag.spv;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\simple_shader.vert.spv;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\shaders</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</VerifyInputsAndOutputsExist>
-      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'"></Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+      </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -250,11 +365,12 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\simple_shader.frag.spv;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\simple_shader.vert.spv;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.frag.spv;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.vert.spv;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\simple_shader.frag.spv;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\simple_shader.vert.spv;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\shaders</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</VerifyInputsAndOutputsExist>
-      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'"></Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+      </Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
 :cmEnd
 endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
@@ -262,7 +378,7 @@ endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
 exit /b %1
 :cmDone
 if %errorlevel% neq 0 goto :VCEnd</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\simple_shader.frag.spv;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\simple_shader.vert.spv;%(AdditionalInputs)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.frag.spv;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\point_light.vert.spv;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\simple_shader.frag.spv;E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\shaders\simple_shader.vert.spv;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\shaders</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
       <VerifyInputsAndOutputsExist Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</VerifyInputsAndOutputsExist>
@@ -326,6 +442,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\shaders\point_light.frag" />
+    <None Include="..\shaders\point_light.vert" />
+    <None Include="..\shaders\simple_shader.frag" />
+    <None Include="..\shaders\simple_shader.vert" />
     <None Include="E:\OldInstallFiles\Users\Johan Ekdahl\source\repos\LightBox\LightBox\build\CMakeFiles\shaders">
     </None>
   </ItemGroup>

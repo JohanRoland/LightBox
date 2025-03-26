@@ -16,7 +16,8 @@
 namespace lightBox {
 
     /**
-     * Returns the minimum instance size required to be compatible with devices minOffsetAlignment
+     * Returns the minimum instance size required to be compatible with devices min
+     Alignment
      *
      * @param instanceSize The size of an instance
      * @param minOffsetAlignment The minimum required alignment, in bytes, for the offset member (eg
@@ -42,7 +43,8 @@ namespace lightBox {
         instanceSize{ instanceSize },
         instanceCount{ instanceCount },
         usageFlags{ usageFlags },
-        memoryPropertyFlags{ memoryPropertyFlags } {
+        memoryPropertyFlags{ memoryPropertyFlags } 
+    {
         alignmentSize = getAlignment(instanceSize, minOffsetAlignment);
         bufferSize = alignmentSize * instanceCount;
         device.createBuffer(bufferSize, usageFlags, memoryPropertyFlags, buffer, memory);
@@ -89,7 +91,7 @@ namespace lightBox {
      * @param offset (Optional) Byte offset from beginning of mapped region
      *
      */
-    void LightBoxBuffer::writeToBuffer(void* data, VkDeviceSize size, VkDeviceSize offset) {
+    void LightBoxBuffer::writeToBuffer(const void* data, VkDeviceSize size, VkDeviceSize offset) {
         assert(mapped && "Cannot copy to unmapped buffer");
 
         if (size == VK_WHOLE_SIZE) {
@@ -133,6 +135,7 @@ namespace lightBox {
      *
      * @return VkResult of the invalidate call
      */
+    /*
     VkResult LightBoxBuffer::invalidate(VkDeviceSize size, VkDeviceSize offset) {
         VkMappedMemoryRange mappedRange = {};
         mappedRange.sType = VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE;
@@ -140,7 +143,7 @@ namespace lightBox {
         mappedRange.offset = offset;
         mappedRange.size = size;
         return vkInvalidateMappedMemoryRanges(lightBoxDevice.device(), 1, &mappedRange);
-    }
+    }*/
 
     /**
      * Create a buffer info descriptor
@@ -165,9 +168,11 @@ namespace lightBox {
      * @param index Used in offset calculation
      *
      */
+    /*
     void LightBoxBuffer::writeToIndex(void* data, int index) {
         writeToBuffer(data, instanceSize, index * alignmentSize);
     }
+    */
 
     /**
      *  Flush the memory range at index * alignmentSize of the buffer to make it visible to the device
@@ -175,7 +180,9 @@ namespace lightBox {
      * @param index Used in offset calculation
      *
      */
+    /*
     VkResult LightBoxBuffer::flushIndex(int index) { return flush(alignmentSize, index * alignmentSize); }
+    */
 
     /**
      * Create a buffer info descriptor
@@ -184,9 +191,11 @@ namespace lightBox {
      *
      * @return VkDescriptorBufferInfo for instance at index
      */
+    /*
     VkDescriptorBufferInfo LightBoxBuffer::descriptorInfoForIndex(int index) {
         return descriptorInfo(alignmentSize, index * alignmentSize);
     }
+    */
 
     /**
      * Invalidate a memory range of the buffer to make it visible to the host
@@ -197,8 +206,9 @@ namespace lightBox {
      *
      * @return VkResult of the invalidate call
      */
+    /*
     VkResult LightBoxBuffer::invalidateIndex(int index) {
         return invalidate(alignmentSize, index * alignmentSize);
-    }
+    }*/
 
 }

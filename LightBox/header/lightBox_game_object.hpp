@@ -2,16 +2,23 @@
 #include "lightBox_model.hpp"
 
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 #include <memory>
 #include <unordered_map>
 
+#define GLM_FORCE_QUAT_DATA_WXYZ
 namespace lightBox {
 
 	struct TransformComponent {
 		glm::vec3 translation{};
 		glm::vec3 scale{ 1.0f,1.0f,1.0f };
 		glm::vec3 rotation;
+		glm::quat quaternionRotation{1.f, 0.f, 0.f, 0.f};
+
+		bool hardCodedMatrixEnabled = false;
+		glm::mat4 hardCodedMatrix = glm::mat4();
+
 		// Matrix corrsponds to Translate * Ry * Rx * Rz * Scale
 		// Rotations correspond to Tait-bryan angles of Y(1), X(2), Z(3)
 		// Taken wholesale from tutorial 12, TODO: Remake in as own solution 
